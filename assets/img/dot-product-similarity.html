@@ -427,6 +427,7 @@ let dpr = window.devicePixelRatio || 1;
 let W, H, cx, cy, scale;
 let currentAngle = 0;
 let autoRotate = false;
+let dragging = false;
 
 const Q_VEC = { x: 3, y: 0 };
 const Q_MAG = 3;
@@ -545,12 +546,49 @@ function draw() {
 }
 
 angleSlider.addEventListener('input', function() { currentAngle = parseInt(this.value); draw(); });
+
+function setAngleFromClientPoint(clientX, clientY) {
+  const rect = canvas.getBoundingClientRect();
+  const x = clientX - rect.left;
+  const y = clientY - rect.top;
+  const vx = (x - cx) / scale;
+  const vy = (cy - y) / scale;
+  const rad = Math.atan2(vy, vx);
+  let deg = (rad * 180 / Math.PI) % 360;
+  if (deg < 0) deg += 360;
+  currentAngle = Math.round(deg);
+  angleSlider.value = currentAngle;
+  draw();
+}
+
+canvas.addEventListener('pointerdown', function(e) {
+  autoRotate = false;
+  autoBtn.classList.remove('active');
+  dragging = true;
+  canvas.setPointerCapture(e.pointerId);
+  setAngleFromClientPoint(e.clientX, e.clientY);
+});
+
+canvas.addEventListener('pointermove', function(e) {
+  if (!dragging) return;
+  setAngleFromClientPoint(e.clientX, e.clientY);
+});
+
+function endDrag(e) {
+  if (!dragging) return;
+  dragging = false;
+  try { canvas.releasePointerCapture(e.pointerId); } catch (_) {}
+}
+
+canvas.addEventListener('pointerup', endDrag);
+canvas.addEventListener('pointercancel', endDrag);
 document.querySelectorAll('.btn[data-angle]').forEach(btn => {
   btn.addEventListener('click', function() {
     autoRotate = false; autoBtn.classList.remove('active');
     animateTo(parseInt(this.dataset.angle));
   });
 });
+autoBtn.addEventListener('click', function() {
 autoBtn.addEventListener('click', function() {
   autoRotate = !autoRotate; this.classList.toggle('active', autoRotate);
   if (autoRotate) autoLoop();

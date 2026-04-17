@@ -57,6 +57,18 @@ Q 和 K 匹配一下，就知道哪些信息和你当前的需求相关；再用
 
 在数学上，Q、K、V 都是向量。Q 是一个查询向量，K 是一组键向量，V 是一组值向量。它们的维度可以不同，但 K 和 V 的数量必须相同——每个键对应一个值，就像每本书的标签对应那本书的内容。
 
+那为什么只需要 Q、K、V 这三个向量就够了？
+
+因为 Attention 要做的事，本质上只有三步：
+
+1. **先表达“我想找什么”**，这需要一个查询角色，所以有了 Q。
+2. **再判断“谁和我相关”**，这需要每条信息都有一个可匹配的标识，所以有了 K。
+3. **最后把真正有用的内容取出来并加权汇总**，这需要每条信息携带实际内容，所以有了 V。
+
+也就是说，Attention 的核心任务无非是：**提问、匹配、取值**。Q 负责提问，K 负责匹配，V 负责取值。只要这三件事能完成，整个注意力机制就已经闭环了，不需要再额外引入第四种基础角色。
+
+换个更直白的说法：如果没有 Q，你就不知道“当前到底想找什么”；如果没有 K，你就没法衡量“谁和当前需求最相关”；如果没有 V，你就算找到了相关位置，也拿不到真正要汇总的信息。三者缺一不可，但三者合起来也刚好够用。
+
 还有一个关键点：Q、K、V 不是凭空来的。在原始的 Attention 机制中，输入是一组向量（比如一个句子中每个词的词向量），然后通过三个不同的线性变换（也就是乘以三个不同的权重矩阵 W_Q、W_K、W_V），分别生成 Q、K、V。这意味着模型可以**学习**如何从同一个输入中提取出不同的角色——什么时候该提问、什么时候该应答、什么时候该交付内容。
 
 ## 逐步拆解计算流程
@@ -97,11 +109,39 @@ $$k = x W_K$$
 
 $$s = q \cdot k = \sum_{i=1}^{d_k} q_i k_i$$
 
-如果我们做一个近似假设：每个分量 `q_i, k_i` 相互独立，且都满足 `E[q_i]=E[k_i]=0`、`Var(q_i)=Var(k_i)=1`，那么：
+如果我们做一个近似假设：每个分量 `q_i, k_i` 相互独立，且都满足
 
-- 单项的期望 `E[q_i k_i] = E[q_i]E[k_i] = 0`
-- 单项的方差 `Var(q_i k_i) = E[q_i^2 k_i^2] - E[q_i k_i]^2 = E[q_i^2]E[k_i^2] = 1`
-- 和的方差 `Var(s) = \sum_{i=1}^{d_k} Var(q_i k_i) = d_k`
+$$\mathbb{E}[q_i] = \mathbb{E}[k_i] = 0, \qquad \operatorname{Var}(q_i) = \operatorname{Var}(k_i) = 1$$
+
+那么单项 `q_i k_i` 的期望是：
+
+$$\mathbb{E}[q_i k_i] = \mathbb{E}[q_i]\mathbb{E}[k_i] = 0$$
+
+单项 `q_i k_i` 的方差是：
+
+$$
+\begin{aligned}
+\operatorname{Var}(q_i k_i)
+&= \mathbb{E}[q_i^2 k_i^2] - \mathbb{E}[q_i k_i]^2 \\
+&= \mathbb{E}[q_i^2]\mathbb{E}[k_i^2] - 0 \\
+&= 1
+\end{aligned}
+$$
+
+于是，整个点积
+
+$$s = \sum_{i=1}^{d_k} q_i k_i$$
+
+的方差就是：
+
+$$
+\begin{aligned}
+\operatorname{Var}(s)
+&= \operatorname{Var}\left(\sum_{i=1}^{d_k} q_i k_i\right) \\
+&= \sum_{i=1}^{d_k} \operatorname{Var}(q_i k_i) \\
+&= d_k
+\end{aligned}
+$$
 
 所以 dₖ = 64 时，`Var(s)=64`，标准差是 `sqrt(64)=8`；dₖ = 512 时，标准差是 `sqrt(512)≈22.6`。这会把 softmax 的输入“拉得很开”，更容易变成近似 one-hot。
 
@@ -152,11 +192,13 @@ $$\text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V$$
 
 用权重 `[0.506, 0.307, 0.186]` 加权求和：
 
-$$0.506 \times [0.8, 0.2] + 0.307 \times [0.3, 0.7] + 0.186 \times [0.1, 0.9]$$
-
-$$= [0.405, 0.101] + [0.092, 0.215] + [0.019, 0.167]$$
-
-$$= [0.516, 0.483]$$
+$$
+\begin{aligned}
+&0.506 \times [0.8, 0.2] + 0.307 \times [0.3, 0.7] + 0.186 \times [0.1, 0.9] \\
+=\;& [0.405, 0.101] + [0.092, 0.215] + [0.019, 0.167] \\
+=\;& [0.516, 0.483]
+\end{aligned}
+$$
 
 最终输出 `[0.516, 0.483]`——它融合了所有信息，但重点突出了与当前查询最相关的 V₁ 的内容。这就是 Attention 的输出：一个向量，既保留了全局视野，又聚焦了局部重点。
 
@@ -271,7 +313,14 @@ $$|\vec{a} - \vec{b}|^2 = |\vec{a}|^2 + |\vec{b}|^2 - 2|\vec{a}||\vec{b}|\cos\th
 
 左边展开：
 
-$$|\vec{a} - \vec{b}|^2 = (\vec{a} - \vec{b}) \cdot (\vec{a} - \vec{b}) = \vec{a} \cdot \vec{a} - 2\vec{a} \cdot \vec{b} + \vec{b} \cdot \vec{b} = |\vec{a}|^2 - 2(\vec{a} \cdot \vec{b}) + |\vec{b}|^2$$
+$$
+\begin{aligned}
+|\vec{a} - \vec{b}|^2
+&= (\vec{a} - \vec{b}) \cdot (\vec{a} - \vec{b}) \\
+&= \vec{a} \cdot \vec{a} - 2\vec{a} \cdot \vec{b} + \vec{b} \cdot \vec{b} \\
+&= |\vec{a}|^2 - 2(\vec{a} \cdot \vec{b}) + |\vec{b}|^2
+\end{aligned}
+$$
 
 代入余弦定理：
 
@@ -295,7 +344,7 @@ $$\vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos\theta$$
 
 **在二维坐标系中演示：**
 
-<iframe src="{{ '/assets/img/dot-product-similarity.html' | relative_url }}" style="width:100%;max-width:960px;aspect-ratio:16/11;border:1px solid #30363d;border-radius:10px;margin:16px 0;" loading="lazy"></iframe>
+<iframe class="dp-demo" src="{{ '/assets/img/dot-product-similarity.html' | relative_url }}" style="border:1px solid #30363d;" loading="lazy"></iframe>
 
 左侧拖动 K 向量旋转，右侧对照推导步骤。观察点积值随夹角的变化：
 

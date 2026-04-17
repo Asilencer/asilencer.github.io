@@ -1069,6 +1069,19 @@ img { max-width: 100%; height: auto; }
   box-shadow: var(--shadow-md);
 }
 
+.post-content iframe.dp-demo,
+.page-content iframe.dp-demo {
+  max-width: var(--max-width-wide);
+  aspect-ratio: 16 / 11;
+}
+
+@media (max-width: 640px) {
+  .post-content iframe.dp-demo,
+  .page-content iframe.dp-demo {
+    aspect-ratio: 3 / 4;
+  }
+}
+
 .post-content hr,
 .page-content hr {
   border: none;
