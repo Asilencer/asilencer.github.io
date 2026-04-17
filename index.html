@@ -21,7 +21,7 @@
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
-          <span class="stat-num">{% assign all_tags = "" %}{% for tag in site.tags %}{% assign all_tags = all_tags | append: tag[0] | append: "," %}{% endfor %}{% assign tag_count = all_tags | split: "," | size | minus: 1 %}{{ tag_count }}</span>
+          <span class="stat-num">{% assign tag_count = site.tags | size %}{{ tag_count }}</span>
           <span class="stat-label">标签</span>
         </div>
       </div>
