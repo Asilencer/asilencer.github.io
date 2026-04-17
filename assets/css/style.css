@@ -728,26 +728,44 @@ img { max-width: 100%; height: auto; }
   gap: 0.8rem;
 }
 
-.post-meta .author {
+.post-meta .author-block {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.author-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  object-fit: cover;
+  gap: 0.6rem;
+  background: var(--color-surface);
+  padding: 0.3rem 0.8rem 0.3rem 0.3rem;
+  border-radius: 999px;
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
 }
 
+.author-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-name {
+  font-weight: 600;
+  color: var(--color-text);
+  font-size: 0.85rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-text-secondary);
+}
+
+.meta-icon {
+  color: var(--color-text-tertiary);
+}
+
 .post-meta .dot {
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   background: var(--color-border);
   border-radius: 50%;
 }

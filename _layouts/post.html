@@ -29,15 +29,23 @@ layout: default
       <h1 class="post-title">{{ page.title }}</h1>
       <div class="post-meta">
         <div class="post-meta-primary">
-          <span class="author">
+          <div class="author-block">
             <img src="{{ site.author.avatar | relative_url | default: '/assets/img/avatar.jpg' }}" alt="{{ page.author | default: site.author.name }}" class="author-avatar">
-            {% assign display_author = page.author | default: site.author.name %}
-            {% if display_author == 'asilencer' %}Asilencer{% else %}{{ display_author | capitalize }}{% endif %}
-          </span>
+            <span class="author-name">
+              {% assign display_author = page.author | default: site.author.name %}
+              {% if display_author == 'asilencer' %}Asilencer{% else %}{{ display_author | capitalize }}{% endif %}
+            </span>
+          </div>
           <span class="dot"></span>
-          <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+          <div class="meta-item">
+            <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+          </div>
           <span class="dot"></span>
-          <span>📖 {% assign wc = page.content | number_of_words %}{% assign rm = wc | divided_by: 200 | plus: 1 %}{{ rm }} min</span>
+          <div class="meta-item">
+            <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>{% assign wc = page.content | number_of_words %}{% assign rm = wc | divided_by: 200 | plus: 1 %}{{ rm }} min read</span>
+          </div>
         </div>
         
         {% if page.categories or page.tags %}
@@ -45,7 +53,10 @@ layout: default
           {% if page.categories %}
             <span class="post-tags categories">
               {% for cat in page.categories %}
-                <a href="/categories.html#{{ cat | slugify }}" class="tag tag-category">📁 {{ cat }}</a>
+                <a href="/categories.html#{{ cat | slugify }}" class="tag tag-category">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                  {{ cat }}
+                </a>
               {% endfor %}
             </span>
           {% endif %}
