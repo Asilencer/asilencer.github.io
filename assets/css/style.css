@@ -1110,7 +1110,7 @@ img { max-width: 100%; height: auto; }
   font-size: 0.75rem;
   font-weight: 800;
   color: var(--color-text);
-  margin-bottom: 0.15rem;
+  margin-bottom: 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   transition: color 0.3s ease;
@@ -1122,25 +1122,7 @@ img { max-width: 100%; height: auto; }
   color: #fff;
 }
 
-.category-card .cat-count {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--color-text-secondary);
-  background: var(--color-surface);
-  padding: 0.1rem 0.4rem;
-  border-radius: 999px;
-  transition: all 0.3s ease;
-}
-
-[data-theme="dark"] .category-card .cat-count {
-  background: var(--color-surface-alt);
-}
-
-.category-card-wrapper:hover .cat-count {
-  background: rgba(255, 255, 255, 0.25);
-  color: #fff;
-}
-
+/* Remove unused cat-count styles */
 .category-posts {
   margin-top: 3rem;
 }
