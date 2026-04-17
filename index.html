@@ -8,30 +8,20 @@ layout: default
 
 <section class="profile-section">
   <div class="container">
-    <div class="profile-layout">
-      <div class="profile-categories">
+    <div class="profile-card">
+      <div class="profile-avatar-ring">
+        <div class="profile-avatar" style="background-image: url('/assets/img/avatar.jpg'); background-size: cover; background-position: center;"></div>
+      </div>
+      <h1 class="profile-name">{{ site.author.name }} <span class="profile-role">{{ site.author.role }}</span></h1>
+      <p class="profile-bio">{{ site.description }}</p>
+      <div class="profile-tags">
         {% assign cats = site.categories | sort %}
         {% for cat in cats %}
-          <a href="/categories.html#{{ cat[0] | slugify }}" class="cat-item">
-            <span class="cat-name">{{ cat[0] }}</span>
-            <span class="cat-count">{{ cat[1].size }}</span>
-          </a>
+          <a href="/categories.html#{{ cat[0] | slugify }}" class="profile-tag">{{ cat[0 }} <span>{{ cat[1].size }}</span></a>
         {% endfor %}
-      </div>
-      <div class="profile-card">
-        <div class="profile-avatar-ring">
-          <div class="profile-avatar" style="background-image: url('/assets/img/avatar.jpg'); background-size: cover; background-position: center;"></div>
-        </div>
-        <h1 class="profile-name">{{ site.author.name }} <span class="profile-role">{{ site.author.role }}</span></h1>
-        <p class="profile-bio">{{ site.description }}</p>
-      </div>
-      <div class="profile-categories profile-categories-right">
         {% assign tags = site.tags | sort %}
         {% for tag in tags %}
-          <a href="/tags.html#{{ tag[0] | slugify }}" class="cat-item">
-            <span class="cat-name">#{{ tag[0] }}</span>
-            <span class="cat-count">{{ tag[1].size }}</span>
-          </a>
+          <a href="/tags.html#{{ tag[0] | slugify }}" class="profile-tag">#{{ tag[0 }} <span>{{ tag[1].size }}</span></a>
         {% endfor %}
       </div>
     </div>
