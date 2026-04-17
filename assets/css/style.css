@@ -777,24 +777,37 @@ img { max-width: 100%; height: auto; }
 .tag {
   background: var(--color-surface);
   color: var(--color-text-secondary);
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
+  padding: 0.2rem 1rem;
+  font-size: 0.7rem;
   font-weight: 500;
   border: 1px solid var(--color-border);
   transition: all var(--transition);
   display: inline-flex;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.35rem;
+  /* Tech Parallelogram Shape */
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
   /* Add subtle shadow for premium feel */
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .tag:hover {
-  background: var(--color-tag-bg);
-  color: var(--color-tag-text);
-  border-color: var(--color-tag-text);
+  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-accent));
+  color: #fff;
+  border-color: transparent;
   transform: translateY(-1px);
+}
+
+.tag .meta-icon {
+  width: 12px;
+  height: 12px;
+  color: inherit;
+  margin-left: 0.1rem;
+}
+
+.tag-text {
+  /* Offset skew text to align visually in parallelogram */
+  transform: skewX(0);
 }
 
 .tag-category {
