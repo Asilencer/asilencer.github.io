@@ -145,27 +145,17 @@ img { max-width: 100%; height: auto; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--color-surface);
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-surface-alt) 100%
+  );
   padding: 0.7rem 0;
   transition: all var(--transition);
 }
 
-.navbar-gradient {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-gradient-start), var(--color-gradient-end), var(--color-gradient-accent));
-  opacity: 0.6;
-}
-
 .navbar.scrolled {
   box-shadow: var(--shadow-sm);
-}
-
-.navbar.scrolled .navbar-gradient {
-  opacity: 1;
 }
 
 .navbar .container {
