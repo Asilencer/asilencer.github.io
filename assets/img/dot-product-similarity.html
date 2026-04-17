@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>点积与相似度</title>
 <style>
+  html, body { height: 100%; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     background: #0d1117;
@@ -12,24 +13,28 @@
     font-family: 'LXGW WenKai Screen', 'Noto Serif SC', serif;
     display: flex;
     flex-direction: column;
-    padding: 20px 16px;
-    min-height: 100vh;
+    height: 100%;
+    overflow: hidden;
+    padding: 12px 12px;
   }
   .main-title {
     font-family: 'Noto Serif SC', serif;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 800;
     color: #e6edf3;
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     letter-spacing: 0.02em;
   }
   .two-col {
     display: flex;
-    gap: 16px;
+    gap: 12px;
     width: 100%;
     max-width: 960px;
     margin: 0 auto;
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
   }
   .col-left {
     flex: 1;
@@ -37,17 +42,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
   }
   .col-right {
     flex: 1;
     min-width: 0;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
   .canvas-wrap {
     position: relative;
     width: 100%;
-    max-width: 400px;
+    max-width: 360px;
     aspect-ratio: 1;
   }
   canvas {
@@ -56,7 +63,7 @@
     border-radius: 8px;
   }
   .legend {
-    margin-top: 10px;
+    margin-top: 8px;
     display: flex;
     gap: 16px;
     justify-content: center;
@@ -65,12 +72,12 @@
   .legend span { display: flex; align-items: center; gap: 5px; }
   .legend .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
   .info-panel {
-    margin-top: 12px;
+    margin-top: 8px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     width: 100%;
-    max-width: 400px;
+    max-width: 360px;
   }
   .info-card {
     background: #161b22;
@@ -97,9 +104,9 @@
   .info-card .value.zero { color: #8b949e; }
   .info-card .value.negative { color: #f85149; }
   .controls {
-    margin-top: 10px;
+    margin-top: 8px;
     width: 100%;
-    max-width: 400px;
+    max-width: 360px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -141,7 +148,7 @@
     background: #21262d;
     border: 1px solid #30363d;
     color: #c9d1d9;
-    padding: 4px 10px;
+    padding: 4px 9px;
     border-radius: 5px;
     font-size: 0.65rem;
     cursor: pointer;
@@ -151,13 +158,13 @@
   .btn:hover { background: #30363d; border-color: #58a6ff; }
   .btn.active { background: #1f6feb; border-color: #1f6feb; color: #fff; }
   .formula-box {
-    margin-top: 12px;
+    margin-top: 8px;
     width: 100%;
-    max-width: 400px;
+    max-width: 360px;
     background: #161b22;
     border: 1px solid #30363d;
     border-radius: 6px;
-    padding: 10px 12px;
+    padding: 8px 10px;
     font-family: 'Courier New', monospace;
     font-size: 0.75rem;
     line-height: 1.7;
@@ -170,24 +177,26 @@
     background: #161b22;
     border: 1px solid #30363d;
     border-radius: 8px;
-    padding: 16px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     gap: 0;
     height: 100%;
+    overflow: auto;
+    min-height: 0;
   }
   .deriv-title {
     font-family: 'Noto Serif SC', serif;
     font-size: 0.85rem;
     font-weight: 800;
     color: #e6edf3;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     text-align: center;
   }
   .step {
     display: flex;
     gap: 10px;
-    padding: 10px 0;
+    padding: 8px 0;
     border-bottom: 1px solid #21262d;
     align-items: flex-start;
   }
@@ -220,7 +229,7 @@
   }
   .step-math {
     font-family: 'Courier New', monospace;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     line-height: 1.6;
     color: #c9d1d9;
     word-break: break-all;
@@ -239,7 +248,7 @@
     margin-top: 6px;
     width: 100%;
     max-width: 200px;
-    aspect-ratio: 1.6;
+    aspect-ratio: 1.8;
   }
   .step-canvas-wrap canvas {
     width: 100%;
@@ -252,7 +261,7 @@
     background: #0d1117;
     border: 1px solid #1f6feb;
     border-radius: 6px;
-    padding: 10px 12px;
+    padding: 8px 10px;
     text-align: center;
   }
   .conclusion .main {
@@ -272,6 +281,8 @@
   @media (max-width: 700px) {
     .two-col { flex-direction: column; }
     .col-right { margin-top: 16px; }
+    body { overflow: auto; }
+    .derivation { overflow: visible; }
   }
 </style>
 </head>
