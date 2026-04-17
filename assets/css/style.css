@@ -1019,38 +1019,55 @@ img { max-width: 100%; height: auto; }
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.95rem;
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
   font-family: var(--font-display);
   font-weight: 500;
-  color: var(--color-text);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end), var(--color-gradient-accent));
+  background-size: 200% 200%;
+  animation: tagGradient 3s ease infinite;
   text-decoration: none;
   transition: all var(--transition);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 70%
+  );
+  animation: tagShine 3s ease-in-out infinite;
 }
 
 .category-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
 }
 
 .category-card .cat-icon {
-  color: var(--color-primary);
+  font-size: 1rem;
 }
 
 .category-card .cat-name {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .category-card .cat-count {
-  font-size: 0.8rem;
-  color: var(--color-text-tertiary);
-  margin-left: 0.2rem;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-left: 0.1rem;
 }
 
 .category-posts {
@@ -1065,29 +1082,34 @@ img { max-width: 100%; height: auto; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--color-border);
 }
 
 .category-header h3 {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  color: var(--color-text);
+  gap: 0.5rem;
 }
 
 .category-header h3 svg {
   color: var(--color-primary);
+  width: 16px;
+  height: 16px;
 }
 
 .category-header .count {
-  font-size: 0.85rem;
-  color: var(--color-text-secondary);
-  font-family: var(--font-display);
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  background: var(--color-code-bg);
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
 }
 
 /* ===== Bento Grid (About Page) ===== */
