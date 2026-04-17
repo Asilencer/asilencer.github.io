@@ -1,24 +1,80 @@
 ---
 layout: default
 ---
-<article class="post">
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <div class="post-meta">
-      <span class="author">{{ page.author | default: site.author.name }}</span>
-      <span class="dot"></span>
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y年%m月%d日" }}</time>
-      {% if page.tags %}
+<div class="container">
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">{{ page.title }}</h1>
+      <div class="post-meta">
+        <span class="author">{{ page.author | default: site.author.name }}</span>
         <span class="dot"></span>
-        <span class="post-tags">
-          {% for tag in page.tags %}
-            <span class="tag">#{{ tag }}</span>
-          {% endfor %}
-        </span>
-      {% endif %}
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+        <span class="dot"></span>
+        <span>📖 {{ page.content | number_of_words | divided_by: 200 | ceil }} min</span>
+        {% if page.categories %}
+          <span class="dot"></span>
+          <span class="post-tags">
+            {% for cat in page.categories %}
+              <a href="/categories.html#{{ cat | slugify }}" class="tag">{{ cat }}</a>
+            {% endfor %}
+          </span>
+        {% endif %}
+        {% if page.tags %}
+          <span class="post-tags">
+            {% for tag in page.tags %}
+              <span class="tag">#{{ tag }}</span>
+            {% endfor %}
+          </span>
+        {% endif %}
+      </div>
+    </header>
+    <div class="post-content">
+      {{ content }}
     </div>
-  </header>
-  <div class="post-content">
-    {{ content }}
-  </div>
-</article>
+  </article>
+</div>
+
+{% if page.toc != false %}
+<div class="toc-wrapper" id="toc-wrapper">
+  <nav class="toc">
+    <div class="toc-title">目录</div>
+    <ul id="toc-list"></ul>
+  </nav>
+</div>
+<script>
+(function() {
+  var content = document.querySelector('.post-content');
+  var tocList = document.getElementById('toc-list');
+  var tocWrapper = document.getElementById('toc-wrapper');
+  if (!content || !tocList) return;
+
+  var headings = content.querySelectorAll('h2, h3');
+  if (headings.length < 2) {
+    if (tocWrapper) tocWrapper.style.display = 'none';
+    return;
+  }
+
+  headings.forEach(function(h, i) {
+    h.id = 'section-' + i;
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.href = '#section-' + i;
+    a.textContent = h.textContent;
+    if (h.tagName === 'H3') a.style.paddingLeft = '1.2rem';
+    tocList.appendChild(li).appendChild(a);
+  });
+
+  // 滚动高亮当前目录项
+  var links = tocList.querySelectorAll('a');
+  window.addEventListener('scroll', function() {
+    var scrollPos = window.scrollY + 100;
+    headings.forEach(function(h, i) {
+      if (h.offsetTop <= scrollPos) {
+        links.forEach(function(l) { l.classList.remove('active'); });
+        if (links[i]) links[i].classList.add('active');
+      }
+    });
+  });
+})();
+</script>
+{% endif %}

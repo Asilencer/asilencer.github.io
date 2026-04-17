@@ -2,6 +2,7 @@
 layout: post
 title: "Markdown 写作指南"
 date: 2026-04-16
+categories: [技术]
 tags: [Markdown, 写作]
 excerpt: "一份简洁的 Markdown 语法速查表，帮助你快速上手博客写作。"
 ---

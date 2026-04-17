@@ -2,7 +2,9 @@
 layout: post
 title: "使用 Jekyll + GitHub Pages 搭建个人博客"
 date: 2026-04-17
+categories: [技术]
 tags: [Jekyll, GitHub Pages, 博客]
+pin: true
 excerpt: "本文介绍如何使用 Jekyll 静态站点生成器配合 GitHub Pages 免费搭建一个现代风格的个人博客。"
 ---
 
@@ -49,6 +51,7 @@ bundle exec jekyll serve
 layout: post
 title: "我的第一篇文章"
 date: 2026-04-17
+categories: [技术]
 tags: [标签1, 标签2]
 ---
 

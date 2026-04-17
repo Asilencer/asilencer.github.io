@@ -6,8 +6,12 @@
     </button>
     <ul class="nav-links">
       <li><a href="/" {% if page.url == '/' %}class="active"{% endif %}>首页</a></li>
+      <li><a href="/categories.html" {% if page.url == '/categories.html' %}class="active"{% endif %}>分类</a></li>
       <li><a href="/about.html" {% if page.url == '/about.html' %}class="active"{% endif %}>关于</a></li>
       <li><a href="{{ site.author.github | prepend: 'https://github.com/' }}" target="_blank">GitHub</a></li>
+      <li>
+        <button class="theme-toggle" id="theme-toggle" aria-label="切换主题" onclick="toggleTheme()">🌙</button>
+      </li>
     </ul>
   </div>
 </nav>

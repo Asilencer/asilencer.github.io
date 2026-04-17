@@ -1,0 +1,30 @@
+---
+layout: default
+title: "404 - Page Not Found"
+permalink: /404.html
+---
+<div class="error-page">
+  <div class="error-terminal">
+    <div class="terminal-header">
+      <span class="terminal-dot"></span>
+      <span class="terminal-dot"></span>
+      <span class="terminal-dot"></span>
+    </div>
+    <div class="terminal-line">
+      <span class="terminal-prompt">~/blog $</span>
+      <span class="terminal-cmd">find . -name "{{ page.requested_url }}"</span>
+    </div>
+    <div class="terminal-output"><span class="error-code">Error 404:</span> Page not found</div>
+    <br>
+    <div class="terminal-output" style="opacity: 0.7;">The page you're looking for doesn't exist.</div>
+    <br>
+    <div class="terminal-line">
+      <span class="terminal-prompt">~/blog $</span>
+      <span class="terminal-cmd">cd <a href="/">~</a></span>
+    </div>
+    <div class="terminal-line">
+      <span class="terminal-prompt">~/blog $</span>
+      <span class="terminal-cursor"></span>
+    </div>
+  </div>
+</div>
