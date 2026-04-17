@@ -150,6 +150,14 @@ img { max-width: 100%; height: auto; }
   transition: background 0.3s, box-shadow 0.3s;
 }
 
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
 .navbar.scrolled {
   background: var(--color-surface);
   box-shadow: var(--shadow-sm);
@@ -182,12 +190,6 @@ img { max-width: 100%; height: auto; }
 .navbar.scrolled .theme-toggle:hover {
   color: var(--color-primary);
   background: var(--color-tag-bg);
-}
-
-.navbar .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .logo {
