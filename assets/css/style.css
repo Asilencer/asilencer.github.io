@@ -868,41 +868,64 @@ img { max-width: 100%; height: auto; }
 
 /* ===== Categories Archive Page ===== */
 .categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
 }
 
 .category-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end), var(--color-gradient-accent));
+  background-size: 200% 200%;
+  animation: tagGradient 3s ease infinite;
+  text-decoration: none;
   transition: all var(--transition);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 70%
+  );
+  animation: tagShine 3s ease-in-out infinite;
 }
 
 .category-card:hover {
-  border-color: var(--color-card-hover-border);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
 }
 
 .category-card .cat-icon {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .category-card .cat-name {
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-bottom: 0.25rem;
+  font-weight: 500;
+  font-size: 0.85rem;
 }
 
 .category-card .cat-count {
-  font-size: 0.78rem;
-  color: var(--color-text-tertiary);
+  font-size: 0.7rem;
+  opacity: 0.8;
 }
 
 .category-posts {
@@ -961,6 +984,7 @@ img { max-width: 100%; height: auto; }
 
 /* ===== Page ===== */
 .page-header {
+  margin-top: 2rem;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--color-border);
@@ -1089,6 +1113,4 @@ img { max-width: 100%; height: auto; }
   .back-to-top { bottom: 1.25rem; right: 1.25rem; width: 36px; height: 36px; }
 
   .post-content, .page-content { font-size: 1rem; }
-
-  .categories-grid { grid-template-columns: repeat(2, 1fr); }
 }
