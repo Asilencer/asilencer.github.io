@@ -732,24 +732,19 @@ img { max-width: 100%; height: auto; }
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  background: var(--color-surface);
-  padding: 0.3rem 0.8rem 0.3rem 0.3rem;
-  border-radius: 999px;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
 }
 
 .author-avatar {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .author-name {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
 }
 
 .meta-item {
@@ -761,6 +756,8 @@ img { max-width: 100%; height: auto; }
 
 .meta-icon {
   color: var(--color-text-tertiary);
+  width: 16px;
+  height: 16px;
 }
 
 .post-meta .dot {
@@ -799,8 +796,9 @@ img { max-width: 100%; height: auto; }
 
 .tag-category {
   background: var(--color-tag-bg);
-  color: var(--color-tag-text);
+  color: var(--color-primary);
   border-color: transparent;
+  font-weight: 600;
 }
 
 /* ===== TOC ===== */
