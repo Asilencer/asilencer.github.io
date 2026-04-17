@@ -41,12 +41,16 @@ layout: default
               <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
               <span>{% assign wc1 = post.content | number_of_words %}{% assign rm1 = wc1 | divided_by: 200 | plus: 1 %}{{ rm1 }} min</span>
             </div>
-            {% if post.tags %}
+            {% if post.tags and post.tags.size > 0 %}
               <span class="dot"></span>
               <span class="post-tags">
-                {% for tag in post.tags limit: 2 %}
-                  <span class="tag">#{{ tag }}</span>
-                {% endfor %}
+                <span class="tag">
+                  <svg class="meta-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                  <span class="tag-text">
+                    {% assign display_tags = post.tags | slice: 0, 2 %}
+                    {{ display_tags | join: " / " }}
+                  </span>
+                </span>
               </span>
             {% endif %}
             <a href="{{ post.url | relative_url }}" class="read-more">阅读 →</a>
