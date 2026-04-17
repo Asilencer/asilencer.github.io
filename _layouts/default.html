@@ -11,7 +11,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
-    // 暗色模式：优先读取 localStorage，其次跟随系统
     (function() {
       var saved = localStorage.getItem('theme');
       if (saved) {
@@ -25,13 +24,16 @@
       var next = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
-      document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+      updateThemeIcon(next);
     }
-    // 页面加载后同步图标
+    function updateThemeIcon(theme) {
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      btn.classList.toggle('dark', theme === 'dark');
+    }
     document.addEventListener('DOMContentLoaded', function() {
       var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      var btn = document.getElementById('theme-toggle');
-      if (btn) btn.textContent = isDark ? '☀️' : '🌙';
+      updateThemeIcon(isDark ? 'dark' : 'light');
     });
   </script>
 </head>
@@ -44,7 +46,6 @@
   <button class="back-to-top" id="back-to-top" aria-label="回到顶部">↑</button>
   {% include footer.html %}
   <script>
-    // 阅读进度条 + 回到顶部 + 导航栏滚动效果
     (function() {
       var navbar = document.getElementById('navbar');
       var progressBar = document.getElementById('progress-bar');
