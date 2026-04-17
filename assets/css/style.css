@@ -301,10 +301,9 @@ img { max-width: 100%; height: auto; }
 /* ===== Hero Section ===== */
 .hero {
   position: relative;
-  height: 70vh;
-  min-height: 480px;
-  margin-top: -48px;
-  overflow: visible;
+  height: 65vh;
+  min-height: 420px;
+  overflow: hidden;
 }
 
 /* Black hole background - only in hero area, full clean image */
@@ -369,44 +368,35 @@ img { max-width: 100%; height: auto; }
   z-index: 2;
 }
 
-/* Profile section: dark gradient transition from hero to content */
-.profile-section {
-  background: linear-gradient(180deg, rgba(5, 5, 20, 0.92) 0%, rgba(5, 5, 20, 0.88) 100%);
-  padding: 2.5rem 0 3rem;
+/* Hero content: centered at bottom of hero */
+.hero-content {
   position: relative;
+  z-index: 3;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  padding-bottom: 2rem;
 }
 
-/* Top edge: blends into black hole hero */
-.profile-section::before {
-  content: '';
-  position: absolute;
-  top: -100px;
-  left: 0;
-  right: 0;
-  height: 100px;
-  background: linear-gradient(to bottom, transparent, rgba(5, 5, 20, 0.92));
-  pointer-events: none;
+/* Profile bio text */
+.profile-bio {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0.75rem 0 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Bottom edge: blends into page background */
-.profile-section::after {
-  content: '';
-  position: absolute;
-  bottom: -100px;
-  left: 0;
-  right: 0;
-  height: 100px;
-  background: linear-gradient(to bottom, rgba(5, 5, 20, 0.88), var(--color-bg));
-  pointer-events: none;
-}
-
-/* Tags row below card */
+/* Tags row */
 .profile-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .profile-tag {
@@ -417,65 +407,21 @@ img { max-width: 100%; height: auto; }
   border-radius: 999px;
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   text-decoration: none;
   transition: all var(--transition);
 }
 
 .profile-tag:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .profile-tag span {
   font-size: 0.65rem;
   opacity: 0.5;
-}
-
-/* Profile Card */
-.profile-card {
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(24px) saturate(150%);
-  -webkit-backdrop-filter: blur(24px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem 2rem;
-  max-width: 400px;
-  margin: 0 auto;
-  text-align: center;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  position: relative;
-  z-index: 5;
-}
-
-/* Animated glow behind card */
-.profile-card-glow {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    rgba(99, 102, 241, 0.08) 10%,
-    transparent 20%,
-    rgba(6, 182, 212, 0.06) 30%,
-    transparent 40%
-  );
-  animation: cardGlowRotate 8s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes cardGlowRotate {
-  to { transform: rotate(360deg); }
-}
-
-.profile-card > *:not(.profile-card-glow) {
-  position: relative;
-  z-index: 1;
 }
 
 /* Avatar with rotating ring */
@@ -503,104 +449,6 @@ img { max-width: 100%; height: auto; }
   background-size: cover;
   background-position: center;
   border: 3px solid var(--color-surface);
-}
-
-.profile-name {
-  font-size: 1.3rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  color: #ffffff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-}
-
-.profile-role {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.8rem;
-  font-weight: 600;
-  display: inline-block;
-  padding: 0.1rem 0.6rem;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.profile-bio {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 0.85rem;
-  line-height: 1.5;
-  margin-bottom: 0;
-}
-
-/* Stats row */
-.profile-stats {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  padding: 1rem 0;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.15rem;
-}
-
-.stat-num {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-text);
-  font-variant-numeric: tabular-nums;
-}
-
-.stat-label {
-  font-size: 0.72rem;
-  color: var(--color-text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.stat-divider {
-  width: 1px;
-  height: 28px;
-  background: var(--color-border);
-}
-
-.profile-links {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.profile-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.45rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  border: 1px solid var(--color-border);
-  color: var(--color-text-secondary);
-  transition: all var(--transition);
-}
-
-.profile-link:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-  background: var(--color-tag-bg);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
 }
 
 /* ===== Category Nav ===== */
