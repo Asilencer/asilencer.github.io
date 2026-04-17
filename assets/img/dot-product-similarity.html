@@ -56,11 +56,14 @@
     width: 100%;
     max-width: 360px;
     aspect-ratio: 1;
+    min-height: 260px;
   }
   canvas {
     width: 100%;
     height: 100%;
     border-radius: 8px;
+    background: #0d1117;
+    touch-action: none;
   }
   .legend {
     margin-top: 8px;
@@ -437,6 +440,9 @@ function resize() {
   const rect = canvas.parentElement.getBoundingClientRect();
   W = rect.width;
   H = rect.height;
+  // Some browsers compute aspect-ratio height after the first layout tick.
+  // In iframes this can be 0 on initial run, so fallback to a square.
+  if (W > 0 && H < 2) H = W;
   canvas.width = W * dpr;
   canvas.height = H * dpr;
   canvas.style.width = W + 'px';
@@ -664,8 +670,10 @@ function drawTriangle() {
 }
 
 window.addEventListener('resize', () => { resize(); drawTriangle(); });
-resize();
-drawTriangle();
+requestAnimationFrame(() => {
+  resize();
+  drawTriangle();
+});
 </script>
 </body>
 </html>
