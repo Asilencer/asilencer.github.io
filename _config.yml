@@ -10,7 +10,7 @@ author:
   email: 1635494872@qq.com
   github: Asilencer
   role: Developer
-  avatar: "A"
+  avatar: "/assets/img/avatar.jpg"
 
 theme: null
 plugins:
@@ -31,7 +31,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      author: "asilencer"
+      author: "Asilencer"
 
 exclude:
   - Gemfile
