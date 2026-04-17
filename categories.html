@@ -31,6 +31,7 @@ permalink: /categories.html
         <div class="post-list">
           {% for post in cat[1] %}
             <article class="post-card">
+              <a href="{{ post.url | relative_url }}" class="post-card-link" aria-label="阅读全文：{{ post.title }}"></a>
               <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
               <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
               <div class="meta">

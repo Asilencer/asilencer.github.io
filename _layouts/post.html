@@ -29,13 +29,13 @@ layout: default
       <h1 class="post-title">{{ page.title }}</h1>
       <div class="post-meta">
         <div class="post-meta-primary">
-          <div class="author-block">
+          <a href="/about.html" class="author-block">
             <img src="{{ site.author.avatar | relative_url | default: '/assets/img/avatar.jpg' }}" alt="{{ page.author | default: site.author.name }}" class="author-avatar">
             <span class="author-name">
               {% assign display_author = page.author | default: site.author.name %}
               {% if display_author == 'asilencer' %}Asilencer{% else %}{{ display_author | capitalize }}{% endif %}
             </span>
-          </div>
+          </a>
           <div class="meta-chain">
             <div class="meta-item meta-chip">
               <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>

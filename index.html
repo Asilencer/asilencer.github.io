@@ -34,6 +34,7 @@ layout: default
     <section class="post-list">
       {% for post in pinned %}
         <article class="post-card pinned">
+          <a href="{{ post.url | relative_url }}" class="post-card-link" aria-label="阅读全文：{{ post.title }}"></a>
           <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
           <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
           <div class="meta">
@@ -71,6 +72,7 @@ layout: default
     {% for post in site.posts %}
       {% unless post.pin %}
       <article class="post-card">
+        <a href="{{ post.url | relative_url }}" class="post-card-link" aria-label="阅读全文：{{ post.title }}"></a>
         <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
         <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
         <div class="meta">
