@@ -216,16 +216,20 @@ img { max-width: 100%; height: auto; }
   background: none;
   border: none;
   color: var(--color-text-secondary);
-  width: auto;
-  height: auto;
   padding: 0.4rem 0.75rem;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: all var(--transition);
   margin-left: 0.25rem;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.theme-toggle svg {
+  display: block;
 }
 
 .theme-toggle:hover {
