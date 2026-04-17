@@ -722,12 +722,7 @@ img { max-width: 100%; height: auto; }
   gap: 0.6rem;
 }
 
-.post-meta-secondary {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
+/* Removed unused post-meta-secondary */
 
 .post-meta .author-block {
   display: flex;
