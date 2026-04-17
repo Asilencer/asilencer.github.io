@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>点积与相似度</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: 'LXGW WenKai Screen', 'Noto Serif SC', serif;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 16px;
+    min-height: 100vh;
+  }
+  .main-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #e6edf3;
+    text-align: center;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+  .two-col {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .col-left {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .col-right {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .canvas-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1;
+  }
+  canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+  }
+  .legend {
+    margin-top: 10px;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    font-size: 0.7rem;
+  }
+  .legend span { display: flex; align-items: center; gap: 5px; }
+  .legend .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .info-panel {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-width: 400px;
+  }
+  .info-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 8px 6px;
+    text-align: center;
+  }
+  .info-card .label {
+    font-size: 0.6rem;
+    color: #8b949e;
+    margin-bottom: 2px;
+    font-family: 'Outfit', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .info-card .value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    transition: color 0.3s;
+  }
+  .info-card .value.positive { color: #3fb950; }
+  .info-card .value.zero { color: #8b949e; }
+  .info-card .value.negative { color: #f85149; }
+  .controls {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .slider-row label {
+    font-size: 0.7rem;
+    color: #8b949e;
+    font-family: 'Outfit', sans-serif;
+    min-width: 72px;
+  }
+  input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 3px;
+    background: #30363d;
+    border-radius: 2px;
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #58a6ff;
+    cursor: pointer;
+  }
+  .btn-row {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 0.65rem;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.2s;
+  }
+  .btn:hover { background: #30363d; border-color: #58a6ff; }
+  .btn.active { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+  .formula-box {
+    margin-top: 12px;
+    width: 100%;
+    max-width: 400px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    line-height: 1.7;
+    text-align: center;
+  }
+  .formula-box .highlight { color: #58a6ff; font-weight: 700; }
+
+  /* 右侧推导 */
+  .derivation {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    height: 100%;
+  }
+  .deriv-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #e6edf3;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .step {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #21262d;
+    align-items: flex-start;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #1f6feb;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .step-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .step-label {
+    font-size: 0.7rem;
+    color: #8b949e;
+    font-family: 'Outfit', sans-serif;
+    margin-bottom: 4px;
+    letter-spacing: 0.03em;
+  }
+  .step-math {
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: #c9d1d9;
+    word-break: break-all;
+  }
+  .step-math .hl { color: #58a6ff; font-weight: 700; }
+  .step-math .green { color: #3fb950; font-weight: 700; }
+  .step-math .red { color: #f85149; }
+  .step-math .dim { color: #484f58; }
+  .step-note {
+    font-size: 0.65rem;
+    color: #8b949e;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .step-canvas-wrap {
+    margin-top: 6px;
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 1.6;
+  }
+  .step-canvas-wrap canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background: #0d1117;
+  }
+  .conclusion {
+    margin-top: 8px;
+    background: #0d1117;
+    border: 1px solid #1f6feb;
+    border-radius: 6px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .conclusion .main {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: #e6edf3;
+    font-weight: 700;
+  }
+  .conclusion .main .hl { color: #58a6ff; }
+  .conclusion .sub {
+    font-size: 0.65rem;
+    color: #8b949e;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 700px) {
+    .two-col { flex-direction: column; }
+    .col-right { margin-top: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="main-title">点积与相似度：拖动 K 向量感受变化 · 右侧对照推导过程</div>
+
+<div class="two-col">
+  <div class="col-left">
+    <div class="canvas-wrap">
+      <canvas id="canvas"></canvas>
+    </div>
+    <div class="legend">
+      <span><span class="dot" style="background:#58a6ff"></span> Q</span>
+      <span><span class="dot" style="background:#f0883e"></span> K</span>
+      <span><span class="dot" style="background:#8b949e"></span> θ</span>
+    </div>
+    <div class="info-panel">
+      <div class="info-card">
+        <div class="label">夹角 θ</div>
+        <div class="value" id="angle-val">0°</div>
+      </div>
+      <div class="info-card">
+        <div class="label">cos θ</div>
+        <div class="value" id="cos-val">1.00</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Q · K</div>
+        <div class="value" id="dot-val">6.00</div>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="slider-row">
+        <label>K 向量角度</label>
+        <input type="range" id="angle-slider" min="0" max="360" value="0" step="1">
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-angle="0">0° 同向</button>
+        <button class="btn" data-angle="90">90° 正交</button>
+        <button class="btn" data-angle="180">180° 反向</button>
+        <button class="btn" id="auto-btn">自动旋转</button>
+      </div>
+    </div>
+    <div class="formula-box">
+      <span class="highlight">Q · K</span> = |Q| × |K| × <span class="highlight">cos θ</span><br>
+      Q = [3, 0] &nbsp; |Q| = 3 &nbsp; |K| = 2<br>
+      <span id="formula-detail">Q · K = 3 × 2 × cos(0°) = <span style="color:#3fb950;font-weight:700">6.00</span></span>
+    </div>
+  </div>
+
+  <div class="col-right">
+    <div class="derivation">
+      <div class="deriv-title">推导：点积 = |a||b|cosθ</div>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-label">起点：余弦定理</div>
+          <div class="step-math">
+            |<span class="hl">a</span> − <span class="hl">b</span>|² = |a|² + |b|² − 2|a||b|cosθ
+          </div>
+          <div class="step-note">对向量 a、b 构成的三角形，第三边为 a−b</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-label">展开左边</div>
+          <div class="step-math">
+            |a−b|² = (a−b)·(a−b)<br>
+            = a·a − <span class="hl">2(a·b)</span> + b·b<br>
+            = |a|² − <span class="hl">2(a·b)</span> + |b|²
+          </div>
+          <div class="step-note">点积分配律展开，a·a = |a|²</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-label">代入余弦定理</div>
+          <div class="step-math">
+            |a|² − <span class="hl">2(a·b)</span> + |b|²<br>
+            = |a|² + |b|² − <span class="hl">2|a||b|cosθ</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-label">消去相同项</div>
+          <div class="step-math">
+            <span class="dim">|a|² + |b|²</span> − 2(a·b) = <span class="dim">|a|² + |b|²</span> − 2|a||b|cosθ<br>
+            ⟹ −2(a·b) = −2|a||b|cosθ
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-label">得到结论</div>
+          <div class="step-math">
+            <span class="green">a · b = |a| |b| cosθ</span>
+          </div>
+          <div class="step-note">点积 = 模长之积 × 夹角余弦<br>方向越一致 → θ 越小 → cosθ 越大 → 点积越大</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-label">几何直觉验证</div>
+          <div class="step-canvas-wrap">
+            <canvas id="triangle-canvas"></canvas>
+          </div>
+          <div class="step-note">向量 a、b 与 a−b 构成三角形<br>θ 越小，a−b 越短，a 和 b 越"相似"</div>
+        </div>
+      </div>
+
+      <div class="conclusion">
+        <div class="main">点积的本质 = <span class="hl">方向一致性</span>的量化</div>
+        <div class="sub">θ=0° → cosθ=1 → 点积最大（最相似）<br>θ=90° → cosθ=0 → 点积为零（无关）<br>θ=180° → cosθ=−1 → 点积最小（最不相似）</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const angleSlider = document.getElementById('angle-slider');
+const angleVal = document.getElementById('angle-val');
+const cosVal = document.getElementById('cos-val');
+const dotVal = document.getElementById('dot-val');
+const formulaDetail = document.getElementById('formula-detail');
+const autoBtn = document.getElementById('auto-btn');
+
+let dpr = window.devicePixelRatio || 1;
+let W, H, cx, cy, scale;
+let currentAngle = 0;
+let autoRotate = false;
+
+const Q_VEC = { x: 3, y: 0 };
+const Q_MAG = 3;
+const K_MAG = 2;
+
+function resize() {
+  const rect = canvas.parentElement.getBoundingClientRect();
+  W = rect.width;
+  H = rect.height;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  cx = W / 2;
+  cy = H / 2;
+  scale = Math.min(W, H) / 8;
+  draw();
+}
+
+function toScreen(vx, vy) {
+  return { x: cx + vx * scale, y: cy - vy * scale };
+}
+
+function drawGrid() {
+  ctx.strokeStyle = '#21262d';
+  ctx.lineWidth = 1;
+  const range = 4;
+  for (let i = -range; i <= range; i++) {
+    const p1 = toScreen(i, -range);
+    const p2 = toScreen(i, range);
+    ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+    const p3 = toScreen(-range, i);
+    const p4 = toScreen(range, i);
+    ctx.beginPath(); ctx.moveTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.stroke();
+  }
+  ctx.strokeStyle = '#30363d';
+  ctx.lineWidth = 1.5;
+  const ax1 = toScreen(-range, 0), ax2 = toScreen(range, 0);
+  ctx.beginPath(); ctx.moveTo(ax1.x, ax1.y); ctx.lineTo(ax2.x, ax2.y); ctx.stroke();
+  const ay1 = toScreen(0, -range), ay2 = toScreen(0, range);
+  ctx.beginPath(); ctx.moveTo(ay1.x, ay1.y); ctx.lineTo(ay2.x, ay2.y); ctx.stroke();
+}
+
+function drawArrow(from, to, color, lw) {
+  const headLen = 10;
+  const dx = to.x - from.x, dy = to.y - from.y;
+  const angle = Math.atan2(dy, dx);
+  ctx.strokeStyle = color; ctx.fillStyle = color;
+  ctx.lineWidth = lw || 2.5; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(from.x, from.y); ctx.lineTo(to.x, to.y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(to.x, to.y);
+  ctx.lineTo(to.x - headLen * Math.cos(angle - 0.35), to.y - headLen * Math.sin(angle - 0.35));
+  ctx.lineTo(to.x - headLen * Math.cos(angle + 0.35), to.y - headLen * Math.sin(angle + 0.35));
+  ctx.closePath(); ctx.fill();
+}
+
+function drawAngleArc(angleDeg) {
+  const rad = angleDeg * Math.PI / 180;
+  const arcR = 0.8 * scale;
+  ctx.strokeStyle = '#8b949e'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+  ctx.beginPath(); ctx.arc(cx, cy, arcR, 0, -rad, rad > 0); ctx.stroke();
+  ctx.setLineDash([]);
+  const midRad = -rad / 2;
+  const lx = cx + (arcR + 14) * Math.cos(midRad);
+  const ly = cy + (arcR + 14) * Math.sin(midRad);
+  ctx.fillStyle = '#8b949e'; ctx.font = '12px Outfit, sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('θ', lx, ly);
+}
+
+function drawProjection(angleDeg) {
+  const rad = angleDeg * Math.PI / 180;
+  const projLen = K_MAG * Math.cos(rad);
+  const projEnd = toScreen(projLen, 0);
+  const kEnd = toScreen(K_MAG * Math.cos(rad), K_MAG * Math.sin(rad));
+  ctx.strokeStyle = 'rgba(240,136,62,0.3)'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+  ctx.beginPath(); ctx.moveTo(kEnd.x, kEnd.y); ctx.lineTo(projEnd.x, projEnd.y); ctx.stroke();
+  ctx.setLineDash([]);
+  if (Math.abs(projLen) > 0.05) {
+    ctx.fillStyle = 'rgba(88,166,255,0.15)';
+    const o = toScreen(0, 0);
+    ctx.beginPath(); ctx.moveTo(o.x, o.y); ctx.lineTo(projEnd.x, projEnd.y); ctx.lineTo(projEnd.x, o.y); ctx.closePath(); ctx.fill();
+  }
+}
+
+function updateInfo(angleDeg) {
+  const rad = angleDeg * Math.PI / 180;
+  const cos = Math.cos(rad);
+  const dot = Q_MAG * K_MAG * cos;
+  angleVal.textContent = angleDeg + '°';
+  cosVal.textContent = cos.toFixed(2);
+  dotVal.textContent = dot.toFixed(2);
+  cosVal.className = 'value ' + (cos > 0.01 ? 'positive' : cos < -0.01 ? 'negative' : 'zero');
+  dotVal.className = 'value ' + (dot > 0.01 ? 'positive' : dot < -0.01 ? 'negative' : 'zero');
+  const cs = dot > 0.01 ? 'color:#3fb950' : dot < -0.01 ? 'color:#f85149' : 'color:#8b949e';
+  formulaDetail.innerHTML = `Q · K = 3 × 2 × cos(${angleDeg}°) = <span style="${cs};font-weight:700">${dot.toFixed(2)}</span>`;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  drawGrid();
+  const rad = currentAngle * Math.PI / 180;
+  const kx = K_MAG * Math.cos(rad), ky = K_MAG * Math.sin(rad);
+  drawProjection(currentAngle);
+  const qEnd = toScreen(Q_VEC.x, Q_VEC.y);
+  const kEnd = toScreen(kx, ky);
+  const origin = toScreen(0, 0);
+  drawArrow(origin, qEnd, '#58a6ff', 2.5);
+  drawArrow(origin, kEnd, '#f0883e', 2.5);
+  ctx.font = 'bold 13px Outfit, sans-serif'; ctx.textAlign = 'center';
+  ctx.fillStyle = '#58a6ff'; ctx.fillText('Q', qEnd.x + 12, qEnd.y - 8);
+  ctx.fillStyle = '#f0883e'; ctx.fillText('K', kEnd.x + 12, kEnd.y - 8);
+  if (currentAngle > 0 && currentAngle < 360) drawAngleArc(currentAngle);
+  updateInfo(currentAngle);
+}
+
+angleSlider.addEventListener('input', function() { currentAngle = parseInt(this.value); draw(); });
+document.querySelectorAll('.btn[data-angle]').forEach(btn => {
+  btn.addEventListener('click', function() {
+    autoRotate = false; autoBtn.classList.remove('active');
+    animateTo(parseInt(this.dataset.angle));
+  });
+});
+autoBtn.addEventListener('click', function() {
+  autoRotate = !autoRotate; this.classList.toggle('active', autoRotate);
+  if (autoRotate) autoLoop();
+});
+
+function animateTo(target) {
+  const start = currentAngle, diff = target - start, dur = 500, t0 = performance.now();
+  function step(now) {
+    const t = Math.min((now - t0) / dur, 1);
+    const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+    currentAngle = Math.round(start + diff * ease);
+    angleSlider.value = currentAngle; draw();
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function autoLoop() {
+  if (!autoRotate) return;
+  currentAngle = (currentAngle + 0.5) % 360;
+  angleSlider.value = Math.round(currentAngle); draw();
+  requestAnimationFrame(autoLoop);
+}
+
+// 右侧三角形示意图
+function drawTriangle() {
+  const tc = document.getElementById('triangle-canvas');
+  const tctx = tc.getContext('2d');
+  const rect = tc.parentElement.getBoundingClientRect();
+  const tw = rect.width, th = rect.height;
+  tc.width = tw * dpr; tc.height = th * dpr;
+  tc.style.width = tw + 'px'; tc.style.height = th + 'px';
+  tctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const ox = tw * 0.12, oy = th * 0.78;
+  const s = Math.min(tw, th) * 0.28;
+
+  const aEnd = { x: ox + 2.2 * s, y: oy };
+  const bEnd = { x: ox + 1.4 * s, y: oy - 1.6 * s };
+  const aMinusB = { x: aEnd.x - bEnd.x + ox, y: aEnd.y - bEnd.y + oy };
+
+  function drawTriArrow(from, to, color) {
+    const headLen = 7;
+    const dx = to.x - from.x, dy = to.y - from.y;
+    const angle = Math.atan2(dy, dx);
+    tctx.strokeStyle = color; tctx.fillStyle = color;
+    tctx.lineWidth = 2; tctx.lineCap = 'round';
+    tctx.beginPath(); tctx.moveTo(from.x, from.y); tctx.lineTo(to.x, to.y); tctx.stroke();
+    tctx.beginPath(); tctx.moveTo(to.x, to.y);
+    tctx.lineTo(to.x - headLen * Math.cos(angle - 0.4), to.y - headLen * Math.sin(angle - 0.4));
+    tctx.lineTo(to.x - headLen * Math.cos(angle + 0.4), to.y - headLen * Math.sin(angle + 0.4));
+    tctx.closePath(); tctx.fill();
+  }
+
+  drawTriArrow({x: ox, y: oy}, aEnd, '#58a6ff');
+  drawTriArrow({x: ox, y: oy}, bEnd, '#f0883e');
+  drawTriArrow(bEnd, aEnd, '#8b949e');
+
+  const arcR = 18;
+  const aAngle = Math.atan2(aEnd.y - oy, aEnd.x - ox);
+  const bAngle = Math.atan2(bEnd.y - oy, bEnd.x - ox);
+  tctx.strokeStyle = '#8b949e'; tctx.lineWidth = 1; tctx.setLineDash([3, 3]);
+  tctx.beginPath(); tctx.arc(ox, oy, arcR, bAngle, aAngle); tctx.stroke();
+  tctx.setLineDash([]);
+
+  tctx.font = 'bold 11px Outfit, sans-serif'; tctx.textAlign = 'center';
+  tctx.fillStyle = '#58a6ff'; tctx.fillText('a', aEnd.x + 10, aEnd.y + 14);
+  tctx.fillStyle = '#f0883e'; tctx.fillText('b', bEnd.x - 12, bEnd.y - 4);
+  tctx.fillStyle = '#8b949e'; tctx.fillText('a−b', (bEnd.x + aEnd.x) / 2 + 14, (bEnd.y + aEnd.y) / 2 - 6);
+  tctx.fillStyle = '#8b949e'; tctx.font = '9px Outfit, sans-serif';
+  const midA = (aAngle + bAngle) / 2;
+  tctx.fillText('θ', ox + (arcR + 10) * Math.cos(midA), oy + (arcR + 10) * Math.sin(midA));
+}
+
+window.addEventListener('resize', () => { resize(); drawTriangle(); });
+resize();
+drawTriangle();
+</script>
+</body>
+</html>
