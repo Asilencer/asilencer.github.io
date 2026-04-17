@@ -9,15 +9,39 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="progress-bar" id="progress-bar"></div>
   {% include navbar.html %}
   <main class="main">
     <div class="container">
       {{ content }}
     </div>
   </main>
+  <button class="back-to-top" id="back-to-top" aria-label="回到顶部">↑</button>
   {% include footer.html %}
+  <script>
+    // 阅读进度条 + 回到顶部 + 导航栏滚动效果
+    (function() {
+      var navbar = document.getElementById('navbar');
+      var progressBar = document.getElementById('progress-bar');
+      var backToTop = document.getElementById('back-to-top');
+
+      window.addEventListener('scroll', function() {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+
+        progressBar.style.width = progress + '%';
+        navbar.classList.toggle('scrolled', scrollTop > 10);
+        backToTop.classList.toggle('visible', scrollTop > 400);
+      });
+
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
 </body>
 </html>

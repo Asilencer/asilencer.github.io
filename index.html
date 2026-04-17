@@ -2,8 +2,22 @@
 layout: default
 ---
 <section class="hero">
+  <div class="hero-badge">个人博客</div>
   <h1>{{ site.title }}</h1>
   <p>{{ site.description }}</p>
+  <div class="hero-social">
+    <a href="{{ site.author.github | prepend: 'https://github.com/' }}" target="_blank">
+      ⚡ GitHub
+    </a>
+    <a href="/about.html">
+      👋 关于我
+    </a>
+  </div>
+</section>
+
+<section class="section-header">
+  <h2>最新文章</h2>
+  <span class="count">{{ site.posts.size }} 篇</span>
 </section>
 
 <section class="post-list">
@@ -22,6 +36,7 @@ layout: default
             {% endfor %}
           </span>
         {% endif %}
+        <a href="{{ post.url | relative_url }}" class="read-more">阅读 →</a>
       </div>
     </article>
   {% endfor %}
