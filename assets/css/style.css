@@ -281,13 +281,17 @@ img { max-width: 100%; height: auto; }
 .hero {
   position: relative;
   padding: 5rem 0 3rem;
+  min-height: 520px;
   overflow: hidden;
 }
 
 /* Black hole background */
 .hero-bg {
   position: absolute;
-  inset: -20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: url('/assets/img/blackhole.jpg') center center / cover no-repeat;
   animation: blackholeDrift 30s ease-in-out infinite alternate;
   opacity: 0.35;
