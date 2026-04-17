@@ -1007,244 +1007,86 @@ img { max-width: 100%; height: auto; }
 
 /* ===== Categories Archive Page ===== */
 .categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
   margin-top: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
 }
 
 .category-card {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--color-text);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
   text-decoration: none;
   transition: all var(--transition);
   box-shadow: var(--shadow-sm);
 }
 
 .category-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
   border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .category-card .cat-icon {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
+  color: var(--color-primary);
 }
 
 .category-card .cat-name {
-  font-size: 1.1rem;
   font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 0.25rem;
 }
 
 .category-card .cat-count {
-  font-size: 0.85rem;
-  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+  margin-left: 0.2rem;
 }
 
 .category-posts {
   margin-top: 2rem;
 }
 
-.category-posts h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
+.category-section {
+  margin-bottom: 3.5rem;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--color-border);
 }
 
-/* ===== Bento Grid (About Page) ===== */
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-top: 2rem;
-  margin-bottom: 4rem;
-}
-
-.bento-item {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  transition: all var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.bento-item:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-primary);
-}
-
-.bento-item.col-span-2 { grid-column: span 2; }
-.bento-item.col-span-4 { grid-column: span 4; }
-.bento-item.row-span-2 { grid-row: span 2; }
-
-.bento-title {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-tertiary);
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.bento-title svg {
-  color: var(--color-primary);
-}
-
-/* Specific Bento Cards */
-.bento-profile {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, var(--color-surface), var(--color-surface-alt));
-}
-
-.bento-profile img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 3px solid var(--color-surface);
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 1rem;
-}
-
-.bento-profile h2 {
+.category-header h3 {
   font-family: var(--font-serif);
   font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.25rem;
-  color: var(--color-text);
-}
-
-.bento-profile p {
-  font-family: var(--font-sans);
-  color: var(--color-text-secondary);
-  font-size: 0.95rem;
-}
-
-/* Tech Stack Grid inside Bento */
-.tech-stack-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tech-badge {
-  display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.4rem 0.8rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-family: var(--font-mono);
+  gap: 0.6rem;
   color: var(--color-text);
-  transition: all var(--transition);
 }
 
-.tech-badge:hover {
-  background: var(--color-tag-bg);
+.category-header h3 svg {
   color: var(--color-primary);
-  border-color: var(--color-primary);
 }
 
-/* Timeline */
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  position: relative;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 5px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--color-border);
-  border-radius: 2px;
-}
-
-.timeline-item {
-  position: relative;
-  padding-left: 1.5rem;
-}
-
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.4rem;
-  width: 12px;
-  height: 12px;
-  background: var(--color-surface);
-  border: 2px solid var(--color-primary);
-  border-radius: 50%;
-}
-
-.timeline-date {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-text-tertiary);
-  margin-bottom: 0.2rem;
-}
-
-.timeline-content {
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  color: var(--color-text);
-  font-weight: 500;
-}
-
-/* GitHub Stats Card */
-.github-stats img {
-  width: 100%;
-  border-radius: var(--radius-sm);
-  filter: var(--github-filter, none);
-}
-
-[data-theme="dark"] .github-stats img {
-  --github-filter: invert(1) hue-rotate(180deg) brightness(1.2) contrast(0.9);
-}
-
-/* Responsive Bento */
-@media (max-width: 768px) {
-  .bento-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .bento-item.col-span-2 { grid-column: span 2; }
-  .bento-item.col-span-4 { grid-column: span 2; }
-}
-
-@media (max-width: 480px) {
-  .bento-grid {
-    grid-template-columns: 1fr;
-  }
-  .bento-item.col-span-2,
-  .bento-item.col-span-4 { grid-column: span 1; }
+.category-header .count {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-display);
 }
 
 /* ===== 404 Page ===== */
