@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 关于
+title: ""
 permalink: /about.html
 ---
 
@@ -9,7 +9,7 @@ permalink: /about.html
   <div class="bento-item col-span-2 row-span-2 bento-profile">
     <img src="{{ site.author.avatar | relative_url | default: '/assets/img/avatar.jpg' }}" alt="Asilencer">
     <h2>Asilencer</h2>
-    <p>Backend Developer & Agent Configurator</p>
+    <p>专注 AI 发展、大模型与全栈开发</p>
   </div>
 
   <!-- Tech Stack Card -->
@@ -56,11 +56,11 @@ permalink: /about.html
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-date">2026 - Present</div>
-        <div class="timeline-content">Focusing on AI Agent Configuration & Rule-based Systems</div>
+        <div class="timeline-content">深入 AI Agent 开发与大语言模型应用</div>
       </div>
       <div class="timeline-item">
         <div class="timeline-date">2023 - 2025</div>
-        <div class="timeline-content">Backend Developer (Go / Kitex / GORM / Elasticsearch)</div>
+        <div class="timeline-content">全栈开发工程师 (Go / Kitex / Python)</div>
       </div>
     </div>
   </div>
@@ -81,5 +81,3 @@ permalink: /about.html
 - **后端架构**与**微服务**的探索经验
 - **AI Agent** 的前沿应用与配置心得
 - 基于 **Go** 和 **Python** 的代码实践
-
-博客使用 [Jekyll](https://jekyllrb.com) 构建，部署于 [GitHub Pages](https://pages.github.com)。追求极简、高性能与纯粹的阅读体验。
