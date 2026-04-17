@@ -74,10 +74,3 @@ permalink: /about.html
     <img src="https://ghchart.rshah.org/6366f1/Asilencer" alt="Asilencer's GitHub Chart">
   </div>
 </div>
-
-## 📝 关于本站
-
-本站是我的数字花园，主要记录：
-- **后端架构**与**微服务**的探索经验
-- **AI Agent** 的前沿应用与配置心得
-- 基于 **Go** 和 **Python** 的代码实践
