@@ -151,8 +151,37 @@ img { max-width: 100%; height: auto; }
 }
 
 .navbar.scrolled {
-  background: transparent;
-  box-shadow: none;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar.scrolled .logo {
+  color: var(--color-text);
+  text-shadow: none;
+}
+
+.navbar.scrolled .logo:hover {
+  color: var(--color-primary);
+}
+
+.navbar.scrolled .nav-links a {
+  color: var(--color-text-secondary);
+  text-shadow: none;
+}
+
+.navbar.scrolled .nav-links a:hover,
+.navbar.scrolled .nav-links a.active {
+  color: var(--color-primary);
+  background: var(--color-tag-bg);
+}
+
+.navbar.scrolled .theme-toggle {
+  color: var(--color-text-secondary);
+}
+
+.navbar.scrolled .theme-toggle:hover {
+  color: var(--color-primary);
+  background: var(--color-tag-bg);
 }
 
 .navbar .container {
