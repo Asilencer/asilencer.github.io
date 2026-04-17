@@ -47,25 +47,14 @@ layout: default
           </div>
         </div>
         
-        {% if page.categories or page.tags %}
+        {% if page.tags and page.tags.size > 0 %}
         <div class="post-meta-secondary">
-          {% if page.categories %}
-            <span class="post-tags categories">
-              {% for cat in page.categories %}
-                <a href="/categories.html#{{ cat | slugify }}" class="tag tag-category">
-                  {{ cat }}
-                </a>
-              {% endfor %}
-            </span>
-          {% endif %}
-          
-          {% if page.tags %}
-            <span class="post-tags">
-              {% for tag in page.tags %}
-                <span class="tag">{{ tag }}</span>
-              {% endfor %}
-            </span>
-          {% endif %}
+          <div class="meta-item">
+            <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+            <div class="post-tags">
+              <span class="tag">{{ page.tags | join: " / " }}</span>
+            </div>
+          </div>
         </div>
         {% endif %}
       </div>
