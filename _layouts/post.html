@@ -2,6 +2,16 @@
 layout: default
 ---
 <div class="container">
+  <nav class="breadcrumb">
+    <a href="/">首页</a>
+    <span class="sep">/</span>
+    {% if page.categories.size > 0 %}
+      {% assign first_cat = page.categories[0] %}
+      <a href="/categories.html#{{ first_cat | slugify }}">{{ first_cat }}</a>
+      <span class="sep">/</span>
+    {% endif %}
+    <span class="current">{{ page.title }}</span>
+  </nav>
   <article class="post">
     <header class="post-header">
       <h1 class="post-title">{{ page.title }}</h1>
