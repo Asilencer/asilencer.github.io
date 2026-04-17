@@ -40,6 +40,13 @@ layout: default
             <div class="meta-item meta-chip">
               <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
             </div>
+            {% if site.analytics.busuanzi %}
+            <div class="meta-item meta-chip post-view-chip" id="busuanzi_container_page_pv">
+              <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              <span>阅读</span>
+              <span id="busuanzi_value_page_pv">--</span>
+            </div>
+            {% endif %}
             <div class="meta-item meta-chip">
               <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
               <span>{% assign wc = page.content | number_of_words %}{% assign rm = wc | divided_by: 200 | plus: 1 %}{{ rm }} min</span>
@@ -57,6 +64,25 @@ layout: default
     <div class="post-content">
       {{ content }}
     </div>
+    {% if site.comments.provider == "utterances" and site.comments.repo %}
+    <section class="discussion-section" id="discussion">
+      <div class="discussion-header">
+        <h2>讨论</h2>
+        <p>直接用 GitHub Issue 留言，适合补充问题、勘误和延伸讨论。</p>
+      </div>
+      <div class="discussion-shell">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="{{ site.comments.repo }}"
+          issue-term="{{ site.comments.issue_term | default: 'pathname' }}"
+          label="{{ site.comments.label | default: 'discussion' }}"
+          theme="{{ site.comments.theme_light | default: 'github-light' }}"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </div>
+    </section>
+    {% endif %}
   </article>
 </div>
 
@@ -122,5 +148,33 @@ layout: default
   id="MathJax-script"
   async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+{% endif %}
+
+{% if site.analytics.busuanzi %}
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+{% endif %}
+
+{% if site.comments.provider == "utterances" and site.comments.repo %}
+<script>
+(function() {
+  var root = document.documentElement;
+  var lightTheme = '{{ site.comments.theme_light | default: "github-light" }}';
+  var darkTheme = '{{ site.comments.theme_dark | default: "github-dark" }}';
+
+  function syncUtterancesTheme() {
+    var frame = document.querySelector('.utterances-frame');
+    if (!frame || !frame.contentWindow) return;
+    var theme = root.getAttribute('data-theme') === 'dark' ? darkTheme : lightTheme;
+    frame.contentWindow.postMessage({ type: 'set-theme', theme: theme }, 'https://utteranc.es');
+  }
+
+  var observer = new MutationObserver(syncUtterancesTheme);
+  observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+
+  window.addEventListener('load', function() {
+    setTimeout(syncUtterancesTheme, 600);
+  });
+})();
 </script>
 {% endif %}

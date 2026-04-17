@@ -1092,6 +1092,44 @@ img { max-width: 100%; height: auto; }
   aspect-ratio: 16 / 11;
 }
 
+.discussion-section {
+  margin-top: 2.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.discussion-header h2 {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+  color: var(--color-text);
+}
+
+.discussion-header p {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+  text-align: justify;
+  text-justify: inter-character;
+}
+
+.discussion-shell {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.75rem 0;
+  overflow: hidden;
+}
+
+.discussion-shell .utterances {
+  max-width: 100%;
+}
+
+.discussion-shell .utterances-frame {
+  width: 100%;
+}
+
 @media (max-width: 640px) {
   .post-content iframe.dp-demo,
   .page-content iframe.dp-demo {

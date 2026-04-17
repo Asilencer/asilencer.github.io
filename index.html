@@ -20,7 +20,12 @@ layout: default
   </div>
 
   {% assign pinned = site.posts | where: "pin", true %}
-  {% assign unpinned = site.posts | where_exp: "p", "p.pin != true" %}
+  {% assign latest_count = 0 %}
+  {% for post in site.posts %}
+    {% unless post.pin %}
+      {% assign latest_count = latest_count | plus: 1 %}
+    {% endunless %}
+  {% endfor %}
 
   {% if pinned.size > 0 %}
     <div class="section-header">
@@ -60,10 +65,11 @@ layout: default
 
   <div class="section-header">
     <h2>最新文章</h2>
-    <span class="count">{{ unpinned.size }} 篇</span>
+    <span class="count">{{ latest_count }} 篇</span>
   </div>
   <section class="post-list">
-    {% for post in unpinned %}
+    {% for post in site.posts %}
+      {% unless post.pin %}
       <article class="post-card">
         <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
         <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
@@ -90,6 +96,7 @@ layout: default
           <a href="{{ post.url | relative_url }}" class="read-more">阅读 →</a>
         </div>
       </article>
+      {% endunless %}
     {% endfor %}
   </section>
 </div>

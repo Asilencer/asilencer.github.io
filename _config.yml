@@ -12,6 +12,17 @@ author:
   role: Developer
   avatar: "/assets/img/avatar.jpg"
 
+comments:
+  provider: utterances
+  repo: "Asilencer/asilencer.github.io"
+  issue_term: pathname
+  label: discussion
+  theme_light: github-light
+  theme_dark: github-dark
+
+analytics:
+  busuanzi: true
+
 theme: null
 plugins:
   - jekyll-feed
