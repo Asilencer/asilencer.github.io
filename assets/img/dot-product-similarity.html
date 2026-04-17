@@ -549,6 +549,36 @@ function draw() {
   ctx.fillStyle = '#f0883e'; ctx.fillText('K', kEnd.x + 12, kEnd.y - 8);
   if (currentAngle > 0 && currentAngle < 360) drawAngleArc(currentAngle);
   updateInfo(currentAngle);
+
+  // Overlay the key numbers on the canvas so the change is obvious in iframes.
+  ctx.save();
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.font = '12px "Courier New", monospace';
+  const cos = Math.cos(rad);
+  const dot = Q_MAG * K_MAG * cos;
+  const lines = [
+    `θ = ${Math.round(currentAngle)}°`,
+    `cosθ = ${cos.toFixed(2)}`,
+    `Q·K = ${dot.toFixed(2)}`
+  ];
+  const pad = 10;
+  const x0 = 12;
+  const y0 = 12;
+  const w = 140;
+  const h = pad * 2 + lines.length * 16 - 4;
+  ctx.fillStyle = 'rgba(13, 17, 23, 0.72)';
+  ctx.strokeStyle = 'rgba(48, 54, 61, 0.9)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.roundRect(x0, y0, w, h, 8);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = '#c9d1d9';
+  for (let i = 0; i < lines.length; i++) {
+    ctx.fillText(lines[i], x0 + pad, y0 + pad + i * 16);
+  }
+  ctx.restore();
 }
 
 angleSlider.addEventListener('input', function() { currentAngle = parseInt(this.value); draw(); });
@@ -568,6 +598,7 @@ function setAngleFromClientPoint(clientX, clientY) {
 }
 
 canvas.addEventListener('pointerdown', function(e) {
+  e.preventDefault();
   autoRotate = false;
   autoBtn.classList.remove('active');
   dragging = true;
@@ -576,6 +607,7 @@ canvas.addEventListener('pointerdown', function(e) {
 });
 
 canvas.addEventListener('pointermove', function(e) {
+  if (dragging) e.preventDefault();
   if (!dragging) return;
   setAngleFromClientPoint(e.clientX, e.clientY);
 });
