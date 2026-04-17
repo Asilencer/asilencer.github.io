@@ -1056,6 +1056,18 @@ img { max-width: 100%; height: auto; }
   margin: 3rem 0;
 }
 
+/* ===== MathJax ===== */
+.post-content mjx-container,
+.page-content mjx-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.post-content mjx-container[display="true"],
+.page-content mjx-container[display="true"] {
+  margin: 1.1rem 0 !important;
+}
+
 /* 3D Tech Octagon Grid Layout */
 .categories-grid {
   display: flex;
