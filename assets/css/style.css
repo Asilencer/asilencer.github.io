@@ -1099,7 +1099,12 @@ img { max-width: 100%; height: auto; }
 
 .post-content mjx-container[display="true"],
 .page-content mjx-container[display="true"] {
-  margin: 1.1rem 0 !important;
+  margin: 1.15rem 0 !important;
+  padding: 0.95rem 1.1rem;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 .post-content mjx-container[display="true"] > svg,
