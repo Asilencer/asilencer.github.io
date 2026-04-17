@@ -570,9 +570,13 @@ img { max-width: 100%; height: auto; }
   text-decoration: none;
 }
 
+/* Ensure all clickable internal elements and texts sit above the full-card link */
+.post-card h2,
 .post-card h2 a,
 .post-card .read-more,
-.post-card .meta-chain a {
+.post-card .meta-chain,
+.post-card .meta-chain a,
+.post-card .excerpt {
   position: relative;
   z-index: 2;
 }
