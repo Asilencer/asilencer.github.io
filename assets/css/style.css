@@ -552,7 +552,7 @@ img { max-width: 100%; height: auto; }
   transition: opacity 0.4s ease;
 }
 
-.post-card > * {
+.post-card > *:not(.post-card-link) {
   position: relative;
   z-index: 1;
 }
@@ -566,19 +566,16 @@ img { max-width: 100%; height: auto; }
 .post-card-link {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 10;
   text-decoration: none;
 }
 
-/* Ensure all clickable internal elements and texts sit above the full-card link */
 .post-card h2,
 .post-card h2 a,
-.post-card .read-more,
-.post-card .meta-chain,
-.post-card .meta-chain a,
-.post-card .excerpt {
+.post-card .meta,
+.post-card .read-more {
   position: relative;
-  z-index: 2;
+  z-index: 20;
 }
 
 .post-card:hover::before {
