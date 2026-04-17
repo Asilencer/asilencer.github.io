@@ -927,7 +927,9 @@ img { max-width: 100%; height: auto; }
   line-height: 1.65;
   font-size: 1rem;
   color: var(--color-text);
-  word-break: break-word;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-break: loose;
 }
 
 .post-content > :first-child,
@@ -971,7 +973,12 @@ img { max-width: 100%; height: auto; }
 }
 
 .post-content p,
-.page-content p { margin-bottom: 1rem; }
+.page-content p {
+  margin-bottom: 1rem;
+  text-align: justify;
+  text-justify: inter-character;
+  text-align-last: auto;
+}
 
 .post-content p + ul,
 .page-content p + ul,
@@ -989,7 +996,11 @@ img { max-width: 100%; height: auto; }
 }
 
 .post-content li,
-.page-content li { margin-bottom: 0.25rem; }
+.page-content li {
+  margin-bottom: 0.25rem;
+  text-align: justify;
+  text-justify: inter-character;
+}
 
 .post-content li::marker,
 .page-content li::marker { color: var(--color-primary); }
