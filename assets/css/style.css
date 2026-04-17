@@ -930,6 +930,11 @@ img { max-width: 100%; height: auto; }
   word-break: break-word;
 }
 
+.post-content > :first-child,
+.page-content > :first-child {
+  margin-top: 0;
+}
+
 .post-content h1,
 .page-content h1,
 .post-content h2,
@@ -951,7 +956,7 @@ img { max-width: 100%; height: auto; }
   font-size: 1.45rem;
   position: relative;
   padding-bottom: 0.4rem;
-  border-bottom: 1px dashed var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .post-content h2::after,
@@ -967,6 +972,13 @@ img { max-width: 100%; height: auto; }
 
 .post-content p,
 .page-content p { margin-bottom: 1rem; }
+
+.post-content p + ul,
+.page-content p + ul,
+.post-content p + ol,
+.page-content p + ol {
+  margin-top: -0.35rem;
+}
 
 .post-content ul,
 .post-content ol,
@@ -1048,6 +1060,15 @@ img { max-width: 100%; height: auto; }
   box-shadow: var(--shadow-md);
 }
 
+.post-content iframe,
+.page-content iframe {
+  display: block;
+  width: 100%;
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+  box-shadow: var(--shadow-md);
+}
+
 .post-content hr,
 .page-content hr {
   border: none;
@@ -1066,6 +1087,11 @@ img { max-width: 100%; height: auto; }
 .post-content mjx-container[display="true"],
 .page-content mjx-container[display="true"] {
   margin: 1.1rem 0 !important;
+}
+
+.post-content mjx-container[display="true"] > svg,
+.page-content mjx-container[display="true"] > svg {
+  max-width: 100%;
 }
 
 /* 3D Tech Octagon Grid Layout */
