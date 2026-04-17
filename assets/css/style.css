@@ -342,10 +342,11 @@ img { max-width: 100%; height: auto; }
   position: relative;
   z-index: 3;
   text-align: center;
-  display: flex;
-  align-items: flex-end;
-  min-height: 560px;
-  padding-bottom: 2rem;
+  padding-top: 55%;
+}
+
+.profile-card {
+  margin: 0 auto;
 }
 
 /* Profile Card */
