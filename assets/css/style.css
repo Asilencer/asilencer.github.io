@@ -1019,8 +1019,8 @@ img { max-width: 100%; height: auto; }
 }
 
 .category-card-wrapper {
-  width: 120px;
-  height: 120px;
+  width: 95px;
+  height: 95px;
   /* 3D glow shadow */
   filter: drop-shadow(0 6px 12px rgba(99, 102, 241, 0.2)) drop-shadow(0 2px 4px rgba(6, 182, 212, 0.15));
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -1045,7 +1045,7 @@ img { max-width: 100%; height: auto; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem;
+  padding: 0.25rem;
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   /* Perfect Tech Octagon Shape */
@@ -1083,8 +1083,8 @@ img { max-width: 100%; height: auto; }
 }
 
 .category-card .cat-icon {
-  font-size: 1.8rem;
-  margin-bottom: 0.2rem;
+  font-size: 1.4rem;
+  margin-bottom: 0.15rem;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
   transition: transform 0.3s ease;
 }
@@ -1095,10 +1095,10 @@ img { max-width: 100%; height: auto; }
 
 .category-card .cat-name {
   font-family: var(--font-display);
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   font-weight: 800;
   color: var(--color-text);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.15rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   transition: color 0.3s ease;
@@ -1112,10 +1112,10 @@ img { max-width: 100%; height: auto; }
 
 .category-card .cat-count {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--color-text-secondary);
   background: var(--color-surface);
-  padding: 0.15rem 0.5rem;
+  padding: 0.1rem 0.4rem;
   border-radius: 999px;
   transition: all 0.3s ease;
 }
