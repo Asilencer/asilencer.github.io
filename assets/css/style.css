@@ -34,7 +34,7 @@
   --font-display: "Outfit", -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
   --font-sans: "LXGW WenKai Screen", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft Yahei", sans-serif;
   --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", STSong, serif;
-  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+  --font-mono: "Courier New", Courier, monospace;
   --max-width: 720px;
   --max-width-wide: 960px;
   --radius: 12px;
