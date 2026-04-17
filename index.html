@@ -20,11 +20,13 @@ layout: default
   </div>
 
   {% assign pinned = site.posts | where: "pin", true %}
-  {% assign latest_count = 0 %}
+  {% assign current_date = site.time | date: "%Y-%m-%d" %}
+  {% assign today_count = 0 %}
   {% for post in site.posts %}
-    {% unless post.pin %}
-      {% assign latest_count = latest_count | plus: 1 %}
-    {% endunless %}
+    {% assign post_date = post.date | date: "%Y-%m-%d" %}
+    {% if post_date == current_date %}
+      {% assign today_count = today_count | plus: 1 %}
+    {% endif %}
   {% endfor %}
 
   {% if pinned.size > 0 %}
@@ -66,40 +68,56 @@ layout: default
 
   <div class="section-header">
     <h2>最新文章</h2>
-    <span class="count">{{ latest_count }} 篇</span>
+    <span class="count">{{ today_count }} 篇</span>
   </div>
   <section class="post-list">
-    {% for post in site.posts %}
-      {% unless post.pin %}
-      <article class="post-card">
-        <a href="{{ post.url | relative_url }}" class="post-card-link" aria-label="阅读全文：{{ post.title }}"></a>
-        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-        <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-        <div class="meta">
-          <div class="meta-chain">
-            <div class="meta-item meta-chip">
-              <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+    {% if today_count > 0 %}
+      {% assign displayed = 0 %}
+      {% for post in site.posts %}
+        {% assign post_date = post.date | date: "%Y-%m-%d" %}
+        {% if post_date == current_date %}
+          {% if displayed < 3 %}
+          <article class="post-card">
+            <a href="{{ post.url | relative_url }}" class="post-card-link" aria-label="阅读全文：{{ post.title }}"></a>
+            <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+            <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+            <div class="meta">
+              <div class="meta-chain">
+                <div class="meta-item meta-chip">
+                  <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+                </div>
+                <div class="meta-item meta-chip">
+                  <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                  <span>{% assign wc2 = post.content | number_of_words %}{% assign rm2 = wc2 | divided_by: 200 | plus: 1 %}{{ rm2 }} min</span>
+                </div>
+                {% if post.tags and post.tags.size > 0 %}
+                  <span class="tag meta-chip">
+                    <svg class="meta-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                    <span class="tag-text">
+                      {% assign display_tags = post.tags | slice: 0, 2 %}
+                      {{ display_tags | join: " / " }}
+                    </span>
+                  </span>
+                {% endif %}
+              </div>
+              <a href="{{ post.url | relative_url }}" class="read-more">阅读 →</a>
             </div>
-            <div class="meta-item meta-chip">
-              <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-              <span>{% assign wc2 = post.content | number_of_words %}{% assign rm2 = wc2 | divided_by: 200 | plus: 1 %}{{ rm2 }} min</span>
-            </div>
-            {% if post.tags and post.tags.size > 0 %}
-              <span class="tag meta-chip">
-                <svg class="meta-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <span class="tag-text">
-                  {% assign display_tags = post.tags | slice: 0, 2 %}
-                  {{ display_tags | join: " / " }}
-                </span>
-              </span>
-            {% endif %}
-          </div>
-          <a href="{{ post.url | relative_url }}" class="read-more">阅读 →</a>
-        </div>
-      </article>
-      {% endunless %}
-    {% endfor %}
+          </article>
+          {% assign displayed = displayed | plus: 1 %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <div class="empty-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <p>今日暂无更新</p>
+        <span>"Code is poetry, written one day at a time."</span>
+      </div>
+    {% endif %}
   </section>
 </div>
 

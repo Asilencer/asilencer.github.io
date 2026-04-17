@@ -529,6 +529,36 @@ img { max-width: 100%; height: auto; }
   margin-bottom: 1.5rem;
 }
 
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--color-text-tertiary);
+}
+
+.empty-state svg {
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  margin: 0 0 0.5rem 0;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.empty-state span {
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  opacity: 0.7;
+}
+
 .post-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
