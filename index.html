@@ -14,9 +14,8 @@ layout: default
 
 <div class="container">
   <div class="profile-categories">
-    {% assign cats = site.categories | sort %}
-    {% for cat in cats %}
-      <a href="/categories.html#{{ cat[0] | slugify }}" class="profile-tag">{{ cat[0 }} <span>{{ cat[1].size }}</span></a>
+    {% for category in site.categories %}
+      <a href="/categories.html#{{ category[0] | slugify }}" class="profile-tag">{{ category[0] }} <span>{{ category[1].size }}</span></a>
     {% endfor %}
   </div>
 
