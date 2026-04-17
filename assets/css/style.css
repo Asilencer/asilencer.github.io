@@ -384,14 +384,16 @@ img { max-width: 100%; height: auto; }
 
 /* Profile Card */
 .profile-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: rgba(10, 10, 30, 0.6);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
   padding: 1.5rem 2rem;
   max-width: 400px;
   margin: 0 auto 1.5rem;
   text-align: center;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   position: relative;
   z-index: 5;
 }
@@ -461,21 +463,23 @@ img { max-width: 100%; height: auto; }
   justify-content: center;
   gap: 0.5rem;
   flex-wrap: wrap;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .profile-role {
-  color: var(--color-primary);
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.8rem;
   font-weight: 600;
   display: inline-block;
   padding: 0.1rem 0.6rem;
-  background: var(--color-tag-bg);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 999px;
-  border: 1px solid rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .profile-bio {
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.75);
   font-size: 0.85rem;
   line-height: 1.5;
   margin-bottom: 0;
