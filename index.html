@@ -1,159 +1,44 @@
----
-layout: default
----
 <section class="hero">
   <canvas id="particles-canvas"></canvas>
   <div class="hero-content container">
     <div class="profile-card">
-      <div class="profile-avatar">{{ site.author.avatar }}</div>
+      <div class="profile-card-glow"></div>
+      <div class="profile-avatar-ring">
+        <div class="profile-avatar">{{ site.author.avatar }}</div>
+      </div>
       <h1 class="profile-name">{{ site.author.name }}</h1>
       <p class="profile-role">{{ site.author.role }}</p>
       <p class="profile-bio">{{ site.description }}</p>
+      <div class="profile-stats">
+        <div class="stat-item">
+          <span class="stat-num">{{ site.posts.size }}</span>
+          <span class="stat-label">文章</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">{% assign cats = site.categories | size %}{{ cats }}</span>
+          <span class="stat-label">分类</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">{% assign all_tags = "" %}{% for tag in site.tags %}{% assign all_tags = all_tags | append: tag[0] | append: "," %}{% endfor %}{% assign tag_count = all_tags | split: "," | size | minus: 1 %}{{ tag_count }}</span>
+          <span class="stat-label">标签</span>
+        </div>
+      </div>
       <div class="profile-links">
         <a href="{{ site.author.github | prepend: 'https://github.com/' }}" target="_blank" class="profile-link">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           GitHub
         </a>
         <a href="/categories.html" class="profile-link">
-          📂 分类
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          分类
         </a>
         <a href="/about.html" class="profile-link">
-          👋 关于
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          关于
         </a>
       </div>
     </div>
   </div>
 </section>
-
-<div class="container">
-  <nav class="category-nav">
-    <a href="/" class="active">全部<span class="count">{{ site.posts.size }}</span></a>
-    {% assign cats = site.categories | sort %}
-    {% for cat in cats %}
-      <a href="/categories.html#{{ cat[0] | slugify }}">{{ cat[0] }}<span class="count">{{ cat[1].size }}</span></a>
-    {% endfor %}
-  </nav>
-
-  {% assign pinned = site.posts | where: "pin", true %}
-  {% assign unpinned = site.posts | where_exp: "p", "p.pin != true" %}
-
-  {% if pinned.size > 0 %}
-    <div class="section-header">
-      <h2>📌 置顶</h2>
-    </div>
-    <section class="post-list">
-      {% for post in pinned %}
-        <article class="post-card pinned">
-          <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-          <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-          <div class="meta">
-            <time>{{ post.date | date: "%Y-%m-%d" }}</time>
-            <span class="sep">·</span>
-            <span class="read-time">📖 {% assign wc1 = post.content | number_of_words %}{% assign rm1 = wc1 | divided_by: 200 | plus: 1 %}{{ rm1 }} min</span>
-            {% if post.tags %}
-              <span class="post-tags">
-                {% for tag in post.tags limit: 2 %}
-                  <span class="tag">#{{ tag }}</span>
-                {% endfor %}
-              </span>
-            {% endif %}
-            <a href="{{ post.url | relative_url }}" class="read-more">阅读 →</a>
-          </div>
-        </article>
-      {% endfor %}
-    </section>
-  {% endif %}
-
-  <div class="section-header">
-    <h2>最新文章</h2>
-    <span class="count">{{ unpinned.size }} 篇</span>
-  </div>
-  <section class="post-list">
-    {% for post in unpinned %}
-      <article class="post-card">
-        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-        <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-        <div class="meta">
-          <time>{{ post.date | date: "%Y-%m-%d" }}</time>
-          <span class="sep">·</span>
-          <span class="read-time">📖 {% assign wc2 = post.content | number_of_words %}{% assign rm2 = wc2 | divided_by: 200 | plus: 1 %}{{ rm2 }} min</span>
-          {% if post.tags %}
-            <span class="post-tags">
-              {% for tag in post.tags limit: 2 %}
-                <span class="tag">#{{ tag }}</span>
-              {% endfor %}
-            </span>
-          {% endif %}
-          <a href="{{ post.url | relative_url }}" class="read-more">阅读 →</a>
-        </div>
-      </article>
-    {% endfor %}
-  </section>
-</div>
-
-<script>
-(function() {
-  var canvas = document.getElementById('particles-canvas');
-  if (!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var particles = [];
-  var particleCount = 50;
-  var maxDist = 120;
-
-  function resize() {
-    var hero = canvas.parentElement;
-    canvas.width = hero.offsetWidth;
-    canvas.height = hero.offsetHeight;
-  }
-
-  function createParticle() {
-    return {
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      r: Math.random() * 2 + 1
-    };
-  }
-
-  function init() {
-    resize();
-    particles = [];
-    for (var i = 0; i < particleCount; i++) particles.push(createParticle());
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    var color = isDark ? '129, 140, 248' : '99, 102, 241';
-    for (var i = 0; i < particles.length; i++) {
-      var p = particles[i];
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + color + ', 0.4)';
-      ctx.fill();
-      for (var j = i + 1; j < particles.length; j++) {
-        var p2 = particles[j];
-        var dx = p.x - p2.x, dy = p.y - p2.y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < maxDist) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = 'rgba(' + color + ', ' + (0.15 * (1 - dist / maxDist)) + ')';
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize', resize);
-  init();
-  draw();
-})();
-</script>
