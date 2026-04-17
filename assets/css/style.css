@@ -559,6 +559,7 @@ img { max-width: 100%; height: auto; }
   top: 1rem;
   right: 1rem;
   font-size: 0.9rem;
+  z-index: 2;
 }
 
 .post-card h2 {
@@ -775,27 +776,53 @@ img { max-width: 100%; height: auto; }
 }
 
 .tag {
-  background: var(--color-surface);
+  background: transparent;
   color: var(--color-text-secondary);
   padding: 0.2rem 1rem;
   font-size: 0.7rem;
   font-weight: 500;
-  border: 1px solid var(--color-border);
   transition: all var(--transition);
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   /* Tech Parallelogram Shape */
   clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
-  /* Add subtle shadow for premium feel */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+  border: none;
+}
+
+.tag::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-border);
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  z-index: -2;
+  transition: all var(--transition);
+}
+
+.tag::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  background: var(--color-surface);
+  clip-path: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
+  z-index: -1;
+  transition: all var(--transition);
+}
+
+.tag:hover::after {
+  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-accent));
 }
 
 .tag:hover {
-  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-accent));
   color: #fff;
-  border-color: transparent;
   transform: translateY(-1px);
+}
+
+.tag:hover::before {
+  background: var(--color-primary);
 }
 
 .tag .meta-icon {
@@ -811,10 +838,24 @@ img { max-width: 100%; height: auto; }
 }
 
 .tag-category {
-  background: var(--color-tag-bg);
   color: var(--color-primary);
-  border-color: transparent;
   font-weight: 600;
+}
+
+.tag-category::before {
+  background: var(--color-primary-light);
+}
+
+.tag-category::after {
+  background: var(--color-tag-bg);
+}
+
+.tag-category:hover {
+  color: #fff;
+}
+
+.tag-category:hover::after {
+  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-accent));
 }
 
 /* ===== TOC ===== */
