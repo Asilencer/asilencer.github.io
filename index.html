@@ -4,24 +4,20 @@ layout: default
 <section class="hero">
   <div class="hero-bg"></div>
   <canvas id="particles-canvas"></canvas>
-</section>
-
-<div class="container">
-  <div class="profile-section">
+  <div class="hero-content container">
     <div class="profile-avatar-ring">
       <div class="profile-avatar" style="background-image: url('/assets/img/avatar.jpg'); background-size: cover; background-position: center;"></div>
     </div>
     <p class="profile-bio">{{ site.description }}</p>
-    <div class="profile-tags">
-      {% assign cats = site.categories | sort %}
-      {% for cat in cats %}
-        <a href="/categories.html#{{ cat[0] | slugify }}" class="profile-tag">{{ cat[0 }} <span>{{ cat[1].size }}</span></a>
-      {% endfor %}
-      {% assign tags = site.tags | sort %}
-      {% for tag in tags %}
-        <a href="/tags.html#{{ tag[0] | slugify }}" class="profile-tag">#{{ tag[0 }} <span>{{ tag[1].size }}</span></a>
-      {% endfor %}
-    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="profile-categories">
+    {% assign cats = site.categories | sort %}
+    {% for cat in cats %}
+      <a href="/categories.html#{{ cat[0] | slugify }}" class="profile-tag">{{ cat[0 }} <span>{{ cat[1].size }}</span></a>
+    {% endfor %}
   </div>
 
   {% assign pinned = site.posts | where: "pin", true %}
