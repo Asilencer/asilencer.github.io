@@ -372,39 +372,50 @@ img { max-width: 100%; height: auto; }
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.4rem 1rem;
-  border-radius: var(--radius-md);
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--color-text);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end), var(--color-gradient-accent));
+  background-size: 200% 200%;
+  animation: tagGradient 3s ease infinite;
   text-decoration: none;
   transition: all var(--transition);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-tag::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 70%
+  );
+  animation: tagShine 3s ease-in-out infinite;
+}
+
+@keyframes tagGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes tagShine {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
 }
 
 .profile-tag:hover {
-  color: #ffffff;
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.profile-tag:hover span {
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.profile-tag span {
-  font-size: 0.7rem;
-  font-weight: 600;
-  opacity: 0.7;
-  background: var(--color-tag-bg);
-  padding: 0.05rem 0.4rem;
-  border-radius: 999px;
-  color: var(--color-text-secondary);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
 }
 
 /* Avatar with rotating ring */
