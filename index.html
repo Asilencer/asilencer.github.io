@@ -8,24 +8,37 @@ layout: default
 
 <section class="profile-section">
   <div class="container">
-    <div class="profile-card">
-      <div class="profile-avatar-ring">
-        <div class="profile-avatar" style="background-image: url('/assets/img/avatar.jpg'); background-size: cover; background-position: center;"></div>
+    <div class="profile-layout">
+      <div class="profile-categories">
+        {% assign cats = site.categories | sort %}
+        {% for cat in cats %}
+          <a href="/categories.html#{{ cat[0] | slugify }}" class="cat-item">
+            <span class="cat-name">{{ cat[0] }}</span>
+            <span class="cat-count">{{ cat[1].size }}</span>
+          </a>
+        {% endfor %}
       </div>
-      <h1 class="profile-name">{{ site.author.name }} <span class="profile-role">{{ site.author.role }}</span></h1>
-      <p class="profile-bio">{{ site.description }}</p>
+      <div class="profile-card">
+        <div class="profile-avatar-ring">
+          <div class="profile-avatar" style="background-image: url('/assets/img/avatar.jpg'); background-size: cover; background-position: center;"></div>
+        </div>
+        <h1 class="profile-name">{{ site.author.name }} <span class="profile-role">{{ site.author.role }}</span></h1>
+        <p class="profile-bio">{{ site.description }}</p>
+      </div>
+      <div class="profile-categories profile-categories-right">
+        {% assign tags = site.tags | sort %}
+        {% for tag in tags %}
+          <a href="/tags.html#{{ tag[0] | slugify }}" class="cat-item">
+            <span class="cat-name">#{{ tag[0] }}</span>
+            <span class="cat-count">{{ tag[1].size }}</span>
+          </a>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>
 
 <div class="container">
-  <nav class="category-nav">
-    <a href="/" class="active">全部<span class="count">{{ site.posts.size }}</span></a>
-    {% assign cats = site.categories | sort %}
-    {% for cat in cats %}
-      <a href="/categories.html#{{ cat[0] | slugify }}">{{ cat[0] }}<span class="count">{{ cat[1].size }}</span></a>
-    {% endfor %}
-  </nav>
 
   {% assign pinned = site.posts | where: "pin", true %}
   {% assign unpinned = site.posts | where_exp: "p", "p.pin != true" %}
