@@ -4,7 +4,10 @@ layout: default
 <section class="hero">
   <div class="hero-bg"></div>
   <canvas id="particles-canvas"></canvas>
-  <div class="hero-content container">
+</section>
+
+<div class="container">
+  <div class="profile-section">
     <div class="profile-avatar-ring">
       <div class="profile-avatar" style="background-image: url('/assets/img/avatar.jpg'); background-size: cover; background-position: center;"></div>
     </div>
@@ -20,9 +23,6 @@ layout: default
       {% endfor %}
     </div>
   </div>
-</section>
-
-<div class="container">
 
   {% assign pinned = site.posts | where: "pin", true %}
   {% assign unpinned = site.posts | where_exp: "p", "p.pin != true" %}
