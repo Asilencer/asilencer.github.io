@@ -145,16 +145,13 @@ img { max-width: 100%; height: auto; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: transparent;
+  background: var(--color-surface);
   padding: 0.7rem 0;
   transition: all var(--transition);
 }
 
 .navbar.scrolled {
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: none;
+  box-shadow: var(--shadow-sm);
 }
 
 .navbar .container {
@@ -166,13 +163,12 @@ img { max-width: 100%; height: auto; }
 .logo {
   font-size: 1.15rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-text);
   letter-spacing: 0.05em;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   transition: color var(--transition);
 }
 
-.logo:hover { color: rgba(255, 255, 255, 0.8); }
+.logo:hover { color: var(--color-primary); }
 
 .nav-links {
   display: flex;
@@ -182,23 +178,22 @@ img { max-width: 100%; height: auto; }
 }
 
 .nav-links a {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--color-text-secondary);
   font-weight: 500;
   font-size: 0.875rem;
   padding: 0.4rem 0.75rem;
   border-radius: var(--radius-sm);
   transition: all var(--transition);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .nav-links a:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.15);
+  color: var(--color-primary);
+  background: var(--color-tag-bg);
 }
 
 .nav-links a.active {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.15);
+  color: var(--color-primary);
+  background: var(--color-tag-bg);
   font-weight: 600;
 }
 
@@ -206,7 +201,7 @@ img { max-width: 100%; height: auto; }
 .theme-toggle {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--color-text-secondary);
   padding: 0.4rem 0.75rem;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -224,8 +219,8 @@ img { max-width: 100%; height: auto; }
 }
 
 .theme-toggle:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.15);
+  color: var(--color-primary);
+  background: var(--color-tag-bg);
 }
 
 .theme-toggle .icon-sun {
@@ -272,20 +267,47 @@ img { max-width: 100%; height: auto; }
 /* ===== Hero Section ===== */
 .hero {
   position: relative;
-  min-height: 560px;
+  height: 55vh;
+  min-height: 380px;
   overflow: hidden;
 }
 
 /* Black hole background - only in hero area */
 .hero-bg {
   position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  bottom: -30px;
+  background: url('/assets/img/blackhole.jpg') center 30% / cover no-repeat;
+  animation: blackholeDrift 30s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+/* Top fade: navbar blends into black hole */
+.hero-bg::before {
+  content: '';
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--color-surface), transparent);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Bottom fade: black hole blends into page background */
+.hero-bg::after {
+  content: '';
+  position: absolute;
   bottom: 0;
-  background: url('/assets/img/blackhole.jpg') center 15% / cover no-repeat;
-  animation: blackholeDrift 30s ease-in-out infinite alternate;
-  z-index: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to top, var(--color-bg), transparent);
+  z-index: 1;
+  pointer-events: none;
 }
 
 [data-theme="dark"] .hero-bg {
@@ -338,30 +360,18 @@ img { max-width: 100%; height: auto; }
   z-index: 2;
 }
 
-.hero-content {
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  padding-top: 55%;
-}
-
-.profile-card {
-  margin: 0 auto;
-}
-
 /* Profile Card */
 .profile-card {
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 2rem 2.5rem;
-  max-width: 360px;
-  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  max-width: 400px;
+  margin: -2.5rem auto 1.5rem;
   text-align: center;
+  box-shadow: var(--shadow-lg);
   position: relative;
-  overflow: hidden;
+  z-index: 5;
 }
 
 /* Animated glow behind card */
@@ -420,30 +430,32 @@ img { max-width: 100%; height: auto; }
 }
 
 .profile-name {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  margin-bottom: 0.25rem;
-  color: #ffffff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .profile-role {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-primary);
   font-size: 0.8rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
   display: inline-block;
-  padding: 0.12rem 0.65rem;
-  background: rgba(255, 255, 255, 0.12);
+  padding: 0.1rem 0.6rem;
+  background: var(--color-tag-bg);
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.1);
 }
 
 .profile-bio {
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--color-text-secondary);
   font-size: 0.85rem;
-  line-height: 1.6;
+  line-height: 1.5;
   margin-bottom: 0;
 }
 

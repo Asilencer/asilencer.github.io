@@ -4,19 +4,16 @@ layout: default
 <section class="hero">
   <div class="hero-bg"></div>
   <canvas id="particles-canvas"></canvas>
-  <div class="hero-content container">
-    <div class="profile-card">
-      <div class="profile-avatar-ring">
-        <div class="profile-avatar" style="background-image: url('/assets/img/avatar.jpg'); background-size: cover; background-position: center;"></div>
-      </div>
-      <h1 class="profile-name">{{ site.author.name }}</h1>
-      <p class="profile-role">{{ site.author.role }}</p>
-      <p class="profile-bio">{{ site.description }}</p>
-    </div>
-  </div>
 </section>
 
 <div class="container">
+  <div class="profile-card">
+    <div class="profile-avatar-ring">
+      <div class="profile-avatar" style="background-image: url('/assets/img/avatar.jpg'); background-size: cover; background-position: center;"></div>
+    </div>
+    <h1 class="profile-name">{{ site.author.name }} <span class="profile-role">{{ site.author.role }}</span></h1>
+    <p class="profile-bio">{{ site.description }}</p>
+  </div>
   <nav class="category-nav">
     <a href="/" class="active">全部<span class="count">{{ site.posts.size }}</span></a>
     {% assign cats = site.categories | sort %}
