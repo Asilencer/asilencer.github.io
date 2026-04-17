@@ -10,7 +10,7 @@ layout: default
         <span class="dot"></span>
         <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
         <span class="dot"></span>
-        <span>📖 {{ page.content | number_of_words | divided_by: 200 | ceil }} min</span>
+        <span>📖 {% assign wc = page.content | number_of_words %}{% assign rm = wc | divided_by: 200 | plus: 1 %}{{ rm }} min</span>
         {% if page.categories %}
           <span class="dot"></span>
           <span class="post-tags">
