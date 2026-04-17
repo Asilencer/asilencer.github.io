@@ -284,6 +284,28 @@ img { max-width: 100%; height: auto; }
   overflow: hidden;
 }
 
+/* Black hole background */
+.hero-bg {
+  position: absolute;
+  inset: -20px;
+  background: url('/assets/img/blackhole.jpg') center center / cover no-repeat;
+  animation: blackholeDrift 30s ease-in-out infinite alternate;
+  opacity: 0.35;
+  filter: blur(1px) saturate(1.3);
+  z-index: 0;
+}
+
+[data-theme="dark"] .hero-bg {
+  opacity: 0.5;
+  filter: blur(0px) saturate(1.5) brightness(1.1);
+}
+
+@keyframes blackholeDrift {
+  0% { transform: scale(1.05) translate(0, 0); }
+  50% { transform: scale(1.12) translate(-10px, -5px); }
+  100% { transform: scale(1.08) translate(5px, 8px); }
+}
+
 /* Grid background */
 .hero::before {
   content: '';
@@ -296,6 +318,7 @@ img { max-width: 100%; height: auto; }
   mask-image: radial-gradient(ellipse 60% 70% at 50% 40%, black 20%, transparent 70%);
   -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 40%, black 20%, transparent 70%);
   pointer-events: none;
+  z-index: 1;
 }
 
 /* Glow orbs */
@@ -311,6 +334,7 @@ img { max-width: 100%; height: auto; }
     radial-gradient(circle at 30% 50%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
     radial-gradient(circle at 70% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
   pointer-events: none;
+  z-index: 1;
 }
 
 /* Particle canvas */
@@ -319,11 +343,12 @@ img { max-width: 100%; height: auto; }
   inset: 0;
   pointer-events: none;
   opacity: 0.6;
+  z-index: 2;
 }
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   text-align: center;
 }
 
