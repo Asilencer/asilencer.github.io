@@ -594,6 +594,39 @@ img { max-width: 100%; height: auto; }
   flex-wrap: wrap;
 }
 
+.post-card .meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.24rem 0.85rem;
+  color: var(--color-text-secondary);
+  position: relative;
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  z-index: 0;
+}
+
+.post-card .meta-item::before,
+.post-card .meta-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: inherit;
+  z-index: -1;
+}
+
+.post-card .meta-item::before {
+  background: color-mix(in srgb, var(--color-primary) 24%, var(--color-border));
+}
+
+.post-card .meta-item::after {
+  inset: 1px;
+  background: color-mix(in srgb, var(--color-primary) 12%, var(--color-surface));
+}
+
+.post-card .meta-item .meta-icon {
+  color: inherit;
+}
+
 .post-card .meta .sep {
   opacity: 0.3;
 }
