@@ -296,7 +296,7 @@ img { max-width: 100%; height: auto; }
   right: 0;
   bottom: 0;
   background:
-    linear-gradient(to bottom, transparent, var(--color-bg) 95%),
+    linear-gradient(to bottom, transparent 0%, transparent 70%, var(--color-bg) 100%),
     url('/assets/img/blackhole.jpg') center 30% / cover no-repeat;
   animation: blackholeDrift 30s ease-in-out infinite alternate;
   z-index: 0;
@@ -655,8 +655,10 @@ img { max-width: 100%; height: auto; }
   gap: 0.35rem;
   padding: 0.3rem 0.95rem 0.3rem 1.05rem;
   color: var(--color-text-secondary);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   position: relative;
   clip-path: polygon(
     var(--meta-chip-cut) 0,
@@ -865,7 +867,7 @@ img { max-width: 100%; height: auto; }
 .tag {
   color: inherit;
   font-size: inherit;
-  font-weight: 500;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
