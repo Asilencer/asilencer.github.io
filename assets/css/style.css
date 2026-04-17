@@ -1005,35 +1005,45 @@ img { max-width: 100%; height: auto; }
   margin: 3rem 0;
 }
 
-/* ===== Categories Archive Page ===== */
+/* Nested Octagon Grid Layout (Interlocking) */
 .categories-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 2rem;
-  margin-bottom: 3rem;
-  max-width: 750px;
+  margin-top: 2.5rem;
+  margin-bottom: 3.5rem;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .category-card-wrapper {
-  width: 120px;
-  height: 120px;
-  /* Apply shadow to the wrapper so it doesn't get clipped */
-  filter: drop-shadow(0 4px 10px rgba(99, 102, 241, 0.15)) drop-shadow(0 1px 3px rgba(6, 182, 212, 0.1));
+  width: 125px;
+  height: 125px;
+  /* Tech glow shadow */
+  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.12)) drop-shadow(0 1px 3px rgba(6, 182, 212, 0.08));
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  margin: 0.2rem;
+  margin: 0;
+  position: relative;
 }
 
 [data-theme="dark"] .category-card-wrapper {
-  filter: drop-shadow(0 4px 10px rgba(99, 102, 241, 0.2)) drop-shadow(0 1px 3px rgba(6, 182, 212, 0.15));
+  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.25)) drop-shadow(0 1px 3px rgba(6, 182, 212, 0.15));
+}
+
+/* Nth-child logic to create interlocking pattern */
+.category-card-wrapper:nth-child(even) {
+  transform: translateY(15px);
 }
 
 .category-card-wrapper:hover {
   transform: translateY(-4px) scale(1.05);
-  filter: drop-shadow(0 8px 20px rgba(99, 102, 241, 0.3));
+  filter: drop-shadow(0 8px 25px rgba(99, 102, 241, 0.35));
+  z-index: 10;
+}
+.category-card-wrapper:nth-child(even):hover {
+  transform: translateY(11px) scale(1.05);
 }
 
 .category-card {
@@ -1043,39 +1053,42 @@ img { max-width: 100%; height: auto; }
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
-  /* Match homepage gradient start/end/accent */
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(6, 182, 212, 0.05));
-  border: 1px solid rgba(99, 102, 241, 0.1);
+  background: var(--color-surface);
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  /* Regular Octagon Shape */
-  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  /* Rounded Octagon Shape */
+  clip-path: polygon(
+    30% 5%, 70% 5%, 
+    95% 30%, 95% 70%, 
+    70% 95%, 30% 95%, 
+    5% 70%, 5% 30%
+  );
   z-index: 1;
   width: 100%;
   height: 100%;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  /* Inner tech glow */
+  box-shadow: inset 0 0 20px rgba(99, 102, 241, 0.05);
 }
 
 .category-card::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 70%
+  inset: 1px;
+  background: var(--color-bg);
+  clip-path: polygon(
+    30% 5%, 70% 5%, 
+    95% 30%, 95% 70%, 
+    70% 95%, 30% 95%, 
+    5% 70%, 5% 30%
   );
-  opacity: 0;
-  transition: opacity 0.3s ease;
   z-index: -1;
+  transition: all 0.3s ease;
 }
 
 .category-card-wrapper:hover .category-card::before {
-  opacity: 1;
-  animation: tagShine 3s ease-in-out infinite;
+  inset: 2px;
+  background: var(--color-surface);
 }
 
 [data-theme="dark"] .category-card {
