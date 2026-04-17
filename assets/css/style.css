@@ -928,8 +928,8 @@ img { max-width: 100%; height: auto; }
   font-size: 1rem;
   color: var(--color-text);
   word-break: normal;
-  overflow-wrap: anywhere;
-  line-break: loose;
+  overflow-wrap: break-word;
+  line-break: strict;
 }
 
 .post-content > :first-child,
