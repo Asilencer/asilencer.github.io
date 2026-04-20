@@ -1103,6 +1103,37 @@ img { max-width: 100%; height: auto; }
 .post-content li::marker,
 .page-content li::marker { color: var(--color-primary); }
 
+.post-content table,
+.page-content table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--color-border);
+  margin: 1rem 0 1.25rem;
+  background: var(--color-surface);
+  font-size: 0.95rem;
+}
+
+.post-content th,
+.page-content th,
+.post-content td,
+.page-content td {
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.post-content thead th,
+.page-content thead th {
+  background: var(--color-surface-alt);
+  font-weight: 700;
+}
+
+.post-content tbody tr:nth-child(even),
+.page-content tbody tr:nth-child(even) {
+  background: rgba(99, 102, 241, 0.04);
+}
+
 .post-content blockquote,
 .page-content blockquote {
   border-left: 3px solid var(--color-primary);
