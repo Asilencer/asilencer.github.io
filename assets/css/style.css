@@ -6,7 +6,7 @@
   --color-text: #1a1a2e;
   --color-text-secondary: #6b7280;
   --color-text-tertiary: #9ca3af;
-  --color-quote-text: #273449;
+  --color-quote-text: #1b2433;
   --color-primary: #6366f1;
   --color-primary-hover: #4f46e5;
   --color-primary-light: #a5b4fc;
@@ -79,7 +79,7 @@
   --color-text: #e2e8f0;
   --color-text-secondary: #94a3b8;
   --color-text-tertiary: #64748b;
-  --color-quote-text: #dbe7f5;
+  --color-quote-text: #eef4ff;
   --color-primary: #818cf8;
   --color-primary-hover: #a5b4fc;
   --color-primary-light: #6366f1;
@@ -1179,13 +1179,20 @@ img { max-width: 100%; height: auto; }
   color: var(--color-quote-text);
   font-family: var(--font-sans);
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
   font-style: normal;
   line-height: 1.6;
 }
 
 .post-content blockquote p,
 .page-content blockquote p {
+  color: inherit;
+}
+
+.post-content blockquote code,
+.page-content blockquote code,
+.post-content blockquote strong,
+.page-content blockquote strong {
   color: inherit;
 }
 
