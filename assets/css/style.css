@@ -19,6 +19,7 @@
   --color-tag-text: #4f46e5;
   --color-code-bg: #f3f4f6;
   --color-code-inline-bg: #f0f0f5;
+  --color-code-inline-text: #111827;
   --color-code-block-bg: #000000;
   --color-code-border: #2f3742;
   --color-code-text: #e6edf3;
@@ -94,6 +95,7 @@
   --color-tag-text: #a5b4fc;
   --color-code-bg: #16162a;
   --color-code-inline-bg: #232338;
+  --color-code-inline-text: #f8fafc;
   --color-code-block-bg: #000000;
   --color-code-border: #30363d;
   --color-code-text: #e6edf3;
@@ -1241,20 +1243,33 @@ img { max-width: 100%; height: auto; }
 .post-content code,
 .page-content code {
   font-family: var(--font-mono);
+  color: var(--color-code-inline-text);
   background: var(--color-code-inline-bg);
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
-  font-size: 0.85em;
+  font-size: 0.9em;
+  font-weight: 600;
   border: 1px solid var(--color-border);
 }
 
-/* Prevent inline code from being stretched by inter-character justification */
+/* Keep inline code legible and avoid forcing line boxes wider */
 .post-content :not(pre) > code,
 .page-content :not(pre) > code {
-  display: inline-block;
-  white-space: nowrap;
+  display: inline;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   letter-spacing: normal;
   word-spacing: normal;
+  line-height: 1.2;
+  vertical-align: baseline;
+  text-align: left;
+  text-justify: auto;
+}
+
+/* Paragraph justification and inline code do not mix well in CJK text */
+.post-content p:has(:not(pre) > code),
+.page-content p:has(:not(pre) > code) {
   text-align: left;
   text-justify: auto;
 }
