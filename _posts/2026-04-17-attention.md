@@ -243,7 +243,7 @@ $$\vec{a} \cdot \vec{b} = \sum_{i=1}^{n} a_i b_i$$
 
 $$\vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}| \cdot \cos\theta$$
 
-其中 |a| 和 |b| 是向量的长度（模），θ 是两个向量之间的夹角。这个等式怎么来的？推导如下。
+其中 $\|\vec{a}\|$ 和 $\|\vec{b}\|$ 是向量的长度（模），$\theta$ 是两个向量之间的夹角。这个等式怎么来的？推导如下。
 
 **推导过程：**
 
@@ -266,7 +266,7 @@ $$
 
 $$|\vec{a}|^2 - 2(\vec{a} \cdot \vec{b}) + |\vec{b}|^2 = |\vec{a}|^2 + |\vec{b}|^2 - 2|\vec{a}||\vec{b}|\cos\theta$$
 
-两边消去 |a|² + |b|²，得到：
+两边消去 $\|\vec{a}\|^2 + \|\vec{b}\|^2$，得到：
 
 $$-2(\vec{a} \cdot \vec{b}) = -2|\vec{a}||\vec{b}|\cos\theta$$
 
