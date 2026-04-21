@@ -1,15 +1,13 @@
 ---
 layout: post
-title: '提示词工程-OpenAI翻译'
+title: 'Prompt engineering | OpenAI API（对照翻译）'
 date: 2026-04-21
 categories: [AI]
 tags: [Prompt-Engineering]
 pin: true
-excerpt: ""
+excerpt: "OpenAI 提示词工程指南对照翻译，涵盖模型选择、消息角色、提示词复用、上下文窗口与 GPT-5/推理模型写法。"
 math: true
 ---
-
-# Prompt engineering | OpenAI API（对照翻译）
 
 > 说明：本文件按“原文 + 中文译文”逐段对照，便于精读学习。
 
@@ -493,31 +491,3 @@ GPT 模型像初级同事：在你提供明确指令、指定输出形式时表�
 > For more information on best practices when using reasoning models, refer to this guide.
 
 更多 reasoning 模型最佳实践，请参考对应官方指南。
-
----
-
-## 13) Next steps（下一步）
-
-> Next steps  
-> Now that you known the basics of text inputs and outputs, you might want to check out one of these resources next.
-
-下一步  
-现在你已经了解文本输入与输出的基础，可以继续查看以下资源。
-
-> Build a prompt in the Playground  
-> Use the Playground to develop and iterate on prompts.
-
-在 Playground 中构建提示词  
-用 Playground 开发并迭代你的提示词。
-
-> Generate JSON data with Structured Outputs  
-> Ensure JSON data emitted from a model conforms to a JSON schema.
-
-使用 Structured Outputs 生成 JSON 数据  
-确保模型输出的 JSON 符合给定 JSON Schema。
-
-> Full API reference  
-> Check out all the options for text generation in the API reference.
-
-完整 API 参考  
-在 API 参考中查看文本生成的全部可选项。
