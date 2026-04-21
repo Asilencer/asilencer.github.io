@@ -12,7 +12,6 @@ math: true
 # Prompt engineering | OpenAI API（对照翻译）
 
 > 说明：本文件按“原文 + 中文译文”逐段对照，便于精读学习。代码块保持原样。
-> 排版说明：英文原文使用引用块（`>`），中文译文使用正文段落。
 > 原文链接：[OpenAI Prompt Engineering Guide](https://developers.openai.com/api/docs/guides/prompt-engineering)
 
 ---
