@@ -1122,16 +1122,17 @@ img { max-width: 100%; height: auto; }
 .post-content ol,
 .page-content ul,
 .page-content ol {
-  margin-bottom: 1rem;
+  margin-top: 0.35rem;
+  margin-bottom: 0.9rem;
   padding-left: 1.5rem;
 }
 
 .post-content li,
 .page-content li {
   font-family: var(--font-reading);
-  margin-bottom: 0.25rem;
-  text-align: justify;
-  text-justify: inter-character;
+  margin-bottom: 0.18rem;
+  text-align: left;
+  text-justify: auto;
 }
 
 .post-content li::marker,
@@ -1186,6 +1187,25 @@ img { max-width: 100%; height: auto; }
 .post-content blockquote p,
 .page-content blockquote p {
   color: inherit;
+}
+
+.post-content blockquote ul,
+.post-content blockquote ol,
+.page-content blockquote ul,
+.page-content blockquote ol {
+  margin-top: 0.25rem;
+  margin-bottom: 0.45rem;
+}
+
+.post-content blockquote li,
+.page-content blockquote li {
+  margin-bottom: 0.12rem;
+  line-height: 1.5;
+}
+
+.post-content blockquote li:last-child,
+.page-content blockquote li:last-child {
+  margin-bottom: 0;
 }
 
 .post-content code,

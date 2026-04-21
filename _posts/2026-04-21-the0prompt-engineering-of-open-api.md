@@ -11,7 +11,8 @@ math: true
 
 # Prompt engineering | OpenAI API（对照翻译）
 
-> 说明：本文件按“原文 + 中文译文”逐段对照，便于精读学习。代码块保持原样。
+> 说明：本文件按“原文 + 中文译文”逐段对照，便于精读学习。
+
 > 原文链接：[OpenAI Prompt Engineering Guide](https://developers.openai.com/api/docs/guides/prompt-engineering)
 
 ---
@@ -243,17 +244,13 @@ OpenAI model spec 描述了模型如何对不同角色消息分配不同优先�
 
 在 API 请求中通过 `prompt` 参数引用该提示词。`prompt` 对象有三个可配置字段：
 
-> - `id`: Unique identifier of your prompt, found in the dashboard.
-> - `version`: A specific version of your prompt (defaults to the “current” version as specified in the dashboard).
-> - `variables`: A map of values to substitute in for variables in your prompt.
->   The substitution values can either be strings, or other Response input
->   message types like `input_image` or `input_file`. See the full API
->   reference.
+> - `id`: Prompt identifier in the dashboard.
+> - `version`: Prompt version (defaults to the dashboard “current” version).
+> - `variables`: Placeholder values; supports strings and Response input types like `input_image` and `input_file`. See API reference.
 
-- `id`：提示词的唯一标识，可在控制台找到。
-- `version`：提示词的具体版本（默认是控制台中标记的 “current” 版本）。
-- `variables`：占位变量的替换值映射。替换值可以是字符串，也可以是
-  `input_image`、`input_file` 等 Response 输入消息类型。详见完整 API 参考。
+- `id`：提示词唯一标识（控制台可查）。
+- `version`：提示词版本（默认控制台“current”）。
+- `variables`：占位值映射，支持字符串和 `input_image`、`input_file` 等 Response 输入类型。详见 API 参考。
 
 ```javascript
 import OpenAI from "openai";
