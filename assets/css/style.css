@@ -1112,9 +1112,20 @@ img { max-width: 100%; height: auto; }
 .page-content p {
   font-family: var(--font-reading);
   margin-bottom: 1rem;
-  text-align: justify;
-  text-justify: inter-character;
-  text-align-last: auto;
+  text-align: left;
+  text-justify: auto;
+}
+
+/* Fallback-safe strategy:
+   - Browsers without :has keep left alignment to avoid line-stretch with inline code
+   - Browsers with :has restore justification only for paragraphs without inline code */
+@supports selector(p:has(code)) {
+  .post-content p:not(:has(:not(pre) > code)),
+  .page-content p:not(:has(:not(pre) > code)) {
+    text-align: justify;
+    text-justify: inter-character;
+    text-align-last: auto;
+  }
 }
 
 .post-content p + ul,
@@ -1263,13 +1274,6 @@ img { max-width: 100%; height: auto; }
   word-spacing: normal;
   line-height: 1.2;
   vertical-align: baseline;
-  text-align: left;
-  text-justify: auto;
-}
-
-/* Paragraph justification and inline code do not mix well in CJK text */
-.post-content p:has(:not(pre) > code),
-.page-content p:has(:not(pre) > code) {
   text-align: left;
   text-justify: auto;
 }
