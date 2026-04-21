@@ -8,9 +8,6 @@ pin: false
 excerpt: "拆解 Karpathy《Intro to LLM》核心脉络：模型本质、预训练与微调、LLM 作为操作系统内核的隐喻，以及安全与实践启发。"
 math: true
 ---
-
-# 看了 Karpathy 的 LLM 入门课，我彻底重新理解了大模型
-
 最近把 Andrej Karpathy 的《Intro to Large Language Models》完整看了一遍，真的收获很大。
 
 Karpathy 是谁？前 Tesla AI 总监，OpenAI 创始成员，深度学习圈的大神级人物。他做科普有个特点——不讲虚的，全是干货。
