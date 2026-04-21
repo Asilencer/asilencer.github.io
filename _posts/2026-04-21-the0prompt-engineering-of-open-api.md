@@ -236,9 +236,9 @@ OpenAI model spec 描述了模型如何对不同角色消息分配不同优先�
 
 工作方式如下：
 
-> Create a reusable prompt in the dashboard with placeholders like {{customer_name}}.
+> Create a reusable prompt in the dashboard with placeholders like {% raw %}{{customer_name}}{% endraw %}.
 
-在控制台创建可复用提示词，并使用 `{{customer_name}}` 这类占位符。
+在控制台创建可复用提示词，并使用 `{% raw %}{{customer_name}}{% endraw %}` 这类占位符。
 
 > Use the prompt in your API request with the prompt parameter. The prompt parameter object has three properties you can configure:
 
