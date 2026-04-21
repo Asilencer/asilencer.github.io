@@ -1268,6 +1268,23 @@ img { max-width: 100%; height: auto; }
   margin: 0;
 }
 
+.post-content div.highlighter-rouge,
+.page-content div.highlighter-rouge,
+.post-content div.highlighter-rouge .highlight,
+.page-content div.highlighter-rouge .highlight,
+.post-content div.highlighter-rouge pre,
+.page-content div.highlighter-rouge pre,
+.post-content div.highlighter-rouge pre code,
+.page-content div.highlighter-rouge pre code {
+  background: var(--color-code-block-bg) !important;
+  color: var(--color-code-text);
+}
+
+.post-content div.highlighter-rouge pre,
+.page-content div.highlighter-rouge pre {
+  border: 1px solid var(--color-code-border) !important;
+}
+
 .post-content .highlight,
 .post-content .highlight code,
 .page-content .highlight,
