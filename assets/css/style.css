@@ -16,17 +16,17 @@
   --color-tag-text: #4f46e5;
   --color-code-bg: #f3f4f6;
   --color-code-inline-bg: #f0f0f5;
-  --color-code-block-bg: #f6f8fa;
-  --color-code-border: #d0d7de;
-  --color-code-text: #1f2328;
-  --color-code-comment: #57606a;
-  --color-code-keyword: #cf222e;
-  --color-code-string: #0a3069;
-  --color-code-number: #953800;
-  --color-code-entity: #0550ae;
-  --color-code-operator: #1f2328;
-  --color-code-error-text: #cf222e;
-  --color-code-error-bg: #ffebe9;
+  --color-code-block-bg: #000000;
+  --color-code-border: #2f3742;
+  --color-code-text: #e6edf3;
+  --color-code-comment: #8b949e;
+  --color-code-keyword: #ff7b72;
+  --color-code-string: #a5d6ff;
+  --color-code-number: #79c0ff;
+  --color-code-entity: #d2a8ff;
+  --color-code-operator: #e6edf3;
+  --color-code-error-text: #ffa198;
+  --color-code-error-bg: rgba(255, 123, 114, 0.18);
   --color-terminal-bg: #1e1e2e;
   --color-terminal-text: #a6e3a1;
   --color-terminal-prompt: #89b4fa;
@@ -46,6 +46,14 @@
   --font-sans: "LXGW WenKai Screen", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft Yahei", sans-serif;
   --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", STSong, serif;
   --font-mono: "Courier New", Courier, monospace;
+  --font-reading:
+    "Outfit",
+    "LXGW WenKai Screen",
+    -apple-system,
+    BlinkMacSystemFont,
+    "PingFang SC",
+    "Microsoft Yahei",
+    sans-serif;
   --max-width: 720px;
   --max-width-wide: 960px;
   --radius: 12px;
@@ -80,15 +88,15 @@
   --color-tag-text: #a5b4fc;
   --color-code-bg: #16162a;
   --color-code-inline-bg: #232338;
-  --color-code-block-bg: #0d1117;
+  --color-code-block-bg: #000000;
   --color-code-border: #30363d;
-  --color-code-text: #c9d1d9;
+  --color-code-text: #e6edf3;
   --color-code-comment: #8b949e;
   --color-code-keyword: #ff7b72;
   --color-code-string: #a5d6ff;
   --color-code-number: #79c0ff;
   --color-code-entity: #d2a8ff;
-  --color-code-operator: #c9d1d9;
+  --color-code-operator: #e6edf3;
   --color-code-error-text: #ffa198;
   --color-code-error-bg: rgba(255, 123, 114, 0.16);
   --color-terminal-bg: #0d0d1a;
@@ -1094,6 +1102,7 @@ img { max-width: 100%; height: auto; }
 
 .post-content p,
 .page-content p {
+  font-family: var(--font-reading);
   margin-bottom: 1rem;
   text-align: justify;
   text-justify: inter-character;
@@ -1117,6 +1126,7 @@ img { max-width: 100%; height: auto; }
 
 .post-content li,
 .page-content li {
+  font-family: var(--font-reading);
   margin-bottom: 0.25rem;
   text-align: justify;
   text-justify: inter-character;
@@ -1178,6 +1188,17 @@ img { max-width: 100%; height: auto; }
   border-radius: 4px;
   font-size: 0.85em;
   border: 1px solid var(--color-border);
+}
+
+/* Prevent inline code from being stretched by inter-character justification */
+.post-content :not(pre) > code,
+.page-content :not(pre) > code {
+  display: inline-block;
+  white-space: nowrap;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-align: left;
+  text-justify: auto;
 }
 
 .post-content pre,
