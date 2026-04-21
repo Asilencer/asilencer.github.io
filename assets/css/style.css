@@ -1203,8 +1203,139 @@ img { max-width: 100%; height: auto; }
 .page-content pre code {
   background: none;
   padding: 0;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  tab-size: 2;
   border: none;
+}
+
+.post-content .highlighter-rouge,
+.page-content .highlighter-rouge {
+  margin: 1rem 0;
+}
+
+.post-content .highlighter-rouge .highlight,
+.page-content .highlighter-rouge .highlight {
+  background: transparent;
+}
+
+.post-content .highlighter-rouge pre,
+.page-content .highlighter-rouge pre {
+  margin: 0;
+}
+
+/* Rouge syntax highlighting */
+.post-content .highlight .c,
+.post-content .highlight .c1,
+.post-content .highlight .cm,
+.post-content .highlight .cp,
+.post-content .highlight .cs,
+.page-content .highlight .c,
+.page-content .highlight .c1,
+.page-content .highlight .cm,
+.page-content .highlight .cp,
+.page-content .highlight .cs {
+  color: #7f8ea3;
+  font-style: italic;
+}
+
+.post-content .highlight .k,
+.post-content .highlight .kc,
+.post-content .highlight .kd,
+.post-content .highlight .kn,
+.post-content .highlight .kp,
+.post-content .highlight .kr,
+.post-content .highlight .kt,
+.page-content .highlight .k,
+.page-content .highlight .kc,
+.page-content .highlight .kd,
+.page-content .highlight .kn,
+.page-content .highlight .kp,
+.page-content .highlight .kr,
+.page-content .highlight .kt {
+  color: #f7b267;
+}
+
+.post-content .highlight .s,
+.post-content .highlight .s1,
+.post-content .highlight .s2,
+.post-content .highlight .sb,
+.post-content .highlight .sc,
+.post-content .highlight .sd,
+.post-content .highlight .se,
+.post-content .highlight .sh,
+.post-content .highlight .si,
+.post-content .highlight .sr,
+.post-content .highlight .ss,
+.page-content .highlight .s,
+.page-content .highlight .s1,
+.page-content .highlight .s2,
+.page-content .highlight .sb,
+.page-content .highlight .sc,
+.page-content .highlight .sd,
+.page-content .highlight .se,
+.page-content .highlight .sh,
+.page-content .highlight .si,
+.page-content .highlight .sr,
+.page-content .highlight .ss {
+  color: #98c379;
+}
+
+.post-content .highlight .m,
+.post-content .highlight .mf,
+.post-content .highlight .mh,
+.post-content .highlight .mi,
+.post-content .highlight .il,
+.page-content .highlight .m,
+.page-content .highlight .mf,
+.page-content .highlight .mh,
+.page-content .highlight .mi,
+.page-content .highlight .il {
+  color: #d19a66;
+}
+
+.post-content .highlight .na,
+.post-content .highlight .nb,
+.post-content .highlight .nc,
+.post-content .highlight .nd,
+.post-content .highlight .ne,
+.post-content .highlight .nf,
+.post-content .highlight .nl,
+.post-content .highlight .nn,
+.post-content .highlight .nt,
+.post-content .highlight .nv,
+.post-content .highlight .vc,
+.post-content .highlight .vg,
+.post-content .highlight .vi,
+.page-content .highlight .na,
+.page-content .highlight .nb,
+.page-content .highlight .nc,
+.page-content .highlight .nd,
+.page-content .highlight .ne,
+.page-content .highlight .nf,
+.page-content .highlight .nl,
+.page-content .highlight .nn,
+.page-content .highlight .nt,
+.page-content .highlight .nv,
+.page-content .highlight .vc,
+.page-content .highlight .vg,
+.page-content .highlight .vi {
+  color: #61afef;
+}
+
+.post-content .highlight .o,
+.post-content .highlight .ow,
+.post-content .highlight .p,
+.page-content .highlight .o,
+.page-content .highlight .ow,
+.page-content .highlight .p {
+  color: #cdd6f4;
+}
+
+.post-content .highlight .err,
+.page-content .highlight .err {
+  color: #ff7b72;
+  background: rgba(255, 123, 114, 0.12);
 }
 
 .post-content img,
