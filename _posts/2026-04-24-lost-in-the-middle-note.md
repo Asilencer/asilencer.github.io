@@ -1,7 +1,7 @@
 ---
 layout: post
 title: '精读 Lost in the Middle（Liu et al. 2023）：长上下文的“位置偏差”与工程应对'
-date: 2026-04-23
+date: 2026-04-24
 categories: [AI]
 tags: [LLM, RAG, Long-Context, Paper-Reading]
 pin: false
@@ -162,4 +162,3 @@ Lost in the Middle 的价值在于：它把“长上下文不稳定”从经验�
 
 - arXiv Abstract: https://arxiv.org/abs/2307.03172
 - arXiv PDF: https://arxiv.org/pdf/2307.03172
-
