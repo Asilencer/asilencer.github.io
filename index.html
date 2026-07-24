@@ -37,12 +37,25 @@ layout: default
         </div>
       </dl>
       {% if latest_post %}
+        {% assign latest_word_count = latest_post.content | number_of_words %}
+        {% assign latest_read_min = latest_word_count | divided_by: 200 | plus: 1 %}
         <div class="latest-note">
-          <span>LATEST NOTE</span>
-          <a href="{{ latest_post.url | relative_url }}">{{ latest_post.title }}</a>
-          <time datetime="{{ latest_post.date | date_to_xmlschema }}">
-            {{ latest_post.date | date: "%Y.%m.%d" }}
-          </time>
+          <div class="latest-note-head">
+            <span>LATEST NOTE</span>
+            <time datetime="{{ latest_post.date | date_to_xmlschema }}">
+              {{ latest_post.date | date: "%Y.%m.%d" }}
+            </time>
+          </div>
+          <a href="{{ latest_post.url | relative_url }}">
+            <span>{{ latest_post.title }}</span>
+            <span class="latest-note-arrow" aria-hidden="true">↗</span>
+          </a>
+          <div class="latest-note-meta">
+            {% if latest_post.categories.size > 0 %}
+              <span>#{{ latest_post.categories | first }}</span>
+            {% endif %}
+            <span>{{ latest_read_min }} MIN READ</span>
+          </div>
         </div>
       {% endif %}
       <svg class="wind-sketch" viewBox="0 0 360 120" aria-hidden="true">
