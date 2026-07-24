@@ -367,23 +367,6 @@ svg {
   position: relative;
 }
 
-.hero-copy::after {
-  position: absolute;
-  top: 2.2rem;
-  right: 3%;
-  width: 58px;
-  height: 58px;
-  border: 1px solid var(--red);
-  border-radius: 50%;
-  color: var(--red);
-  content: "风";
-  font-family: var(--font-hand);
-  font-size: 1.75rem;
-  line-height: 58px;
-  text-align: center;
-  transform: rotate(8deg);
-}
-
 .hero-copy h1 {
   max-width: 6em;
   margin-top: 1.5rem;
@@ -2198,15 +2181,6 @@ svg {
   .hero-grid {
     padding-top: 4rem;
     padding-bottom: 5rem;
-  }
-
-  .hero-copy::after {
-    top: 2.4rem;
-    right: 0;
-    width: 48px;
-    height: 48px;
-    font-size: 1.4rem;
-    line-height: 48px;
   }
 
   .hero-copy h1 {
