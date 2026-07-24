@@ -10,8 +10,7 @@
     一个安静、本地优先的 Markdown 写作空间。写作保持直接，内容留在你的 Mac，
     普通文件也能被长期拥有。
   mark: /assets/img/jotkeep-mark.svg
-  preview: >-
-    https://raw.githubusercontent.com/Asilencer/jotkeep/main/assets/screenshots/jotkeep-onboarding-en.png
+  preview: /assets/img/jotkeep-preview.jpg
   preview_alt: Jotkeep 的英文引导页面
   repo: https://github.com/Asilencer/jotkeep
   facts:
