@@ -1234,6 +1234,7 @@ svg {
 
 .work-tagline {
   margin-top: clamp(2rem, 5vw, 3.5rem);
+  padding-left: calc(54px + 1rem);
   color: var(--work-accent);
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 700;
@@ -2781,6 +2782,7 @@ svg {
 
   .work-tagline {
     margin-top: 2rem;
+    padding-left: calc(46px + 1rem);
   }
 
   .work-facts {
