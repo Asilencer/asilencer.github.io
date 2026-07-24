@@ -1,0 +1,101 @@
+---
+layout: default
+title: 作品
+permalink: /works.html
+excerpt: 收录 Asilencer 正在构建与已经完成的独立产品。
+---
+{% assign works = site.data.works %}
+{% assign work_count = works | size %}
+
+<header class="works-hero container-wide">
+  <div class="works-hero-copy">
+    <p class="eyebrow"><span></span> INDEPENDENT WORK / {{ work_count }} PROJECT</p>
+    <h1>把想法，<br><em>做成作品。</em></h1>
+  </div>
+  <div class="works-hero-note">
+    <span>PORTFOLIO / {{ 'now' | date: '%Y' }}</span>
+    <p>这里收录正在构建与已经完成的独立产品。每一件作品，都从一个真实问题开始。</p>
+  </div>
+</header>
+
+<section class="works-list container-wide" aria-label="作品列表">
+  {% for work in works %}
+    <article
+      class="work-card"
+      id="{{ work.slug }}"
+      style="--work-accent: {{ work.accent | default: '#cc7d5e' }}">
+      <header class="work-card-head">
+        <span>PROJECT / 0{{ forloop.index }}</span>
+        <span class="work-status"><i></i>{{ work.stage }} / {{ work.status }}</span>
+      </header>
+
+      <div class="work-layout">
+        <a
+          class="work-preview"
+          href="{{ work.repo }}"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="在 GitHub 查看 {{ work.name }}">
+          <span class="work-window-bar" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </span>
+          <img src="{{ work.preview }}" alt="{{ work.preview_alt }}" loading="eager">
+          <span class="work-preview-link">VIEW PROJECT ↗</span>
+        </a>
+
+        <div class="work-copy">
+          <div class="work-brand">
+            <img src="{{ work.mark | relative_url }}" alt="" class="work-mark">
+            <div>
+              <p>{{ work.kind }} / {{ work.year }}</p>
+              <h2>{{ work.name }}</h2>
+            </div>
+          </div>
+
+          <p class="work-tagline">{{ work.tagline }}</p>
+          <p class="work-summary">{{ work.summary }}</p>
+
+          <dl class="work-facts">
+            {% for fact in work.facts %}
+              <div>
+                <dt>{{ fact.label }}</dt>
+                <dd>{{ fact.value }}</dd>
+              </div>
+            {% endfor %}
+          </dl>
+
+          <a class="button button-primary work-cta" href="{{ work.repo }}" target="_blank" rel="noreferrer">
+            查看源代码 <span>↗</span>
+          </a>
+        </div>
+      </div>
+
+      <footer class="work-card-foot">
+        <div class="work-highlights">
+          <p>WHAT IT DOES</p>
+          <ul>
+            {% for highlight in work.highlights %}
+              <li><span>0{{ forloop.index }}</span>{{ highlight }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="work-stack">
+          <p>BUILT WITH</p>
+          <ul>
+            {% for item in work.stack %}
+              <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </footer>
+    </article>
+  {% endfor %}
+</section>
+
+<section class="works-next container-wide">
+  <span>MORE TO COME</span>
+  <div>
+    <h2>下一件作品，正在路上。</h2>
+    <p>新的产品、工具和实验会继续放到这里。</p>
+  </div>
+</section>

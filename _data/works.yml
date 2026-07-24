@@ -1,0 +1,33 @@
+- slug: jotkeep
+  name: Jotkeep
+  kind: macOS APPLICATION
+  year: "2026"
+  status: 持续构建
+  stage: OPEN SOURCE
+  accent: "#cc7d5e"
+  tagline: 所记，皆归于你。
+  summary: >-
+    一个安静、本地优先的 Markdown 写作空间。写作保持直接，内容留在你的 Mac，
+    普通文件也能被长期拥有。
+  mark: /assets/img/jotkeep-mark.svg
+  preview: >-
+    https://raw.githubusercontent.com/Asilencer/jotkeep/main/assets/screenshots/jotkeep-onboarding-en.png
+  preview_alt: Jotkeep 的英文引导页面
+  repo: https://github.com/Asilencer/jotkeep
+  facts:
+    - label: PLATFORM
+      value: macOS
+    - label: SOURCE
+      value: Markdown
+    - label: LICENSE
+      value: MIT
+  highlights:
+    - 块编辑器与 Markdown 源码模式
+    - 本地资料库、历史版本与自动备份
+    - Spotlight、分享扩展与本地通知
+    - 不以账号和云端作为使用前提
+  stack:
+    - Electron
+    - React
+    - TypeScript
+    - Slate
