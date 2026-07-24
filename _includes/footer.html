@@ -1,11 +1,25 @@
 <footer class="footer">
-  <div class="container">
-    <div class="footer-links">
-      <a href="/">首页</a>
-      <a href="/categories.html">分类</a>
-      <a href="/about.html">关于</a>
-      <a href="{{ site.author.github | prepend: 'https://github.com/' }}" target="_blank">GitHub</a>
+  <div class="container-wide footer-grid">
+    <div class="footer-brand">
+      <img src="{{ '/assets/img/brand-mark.svg' | relative_url }}" alt="">
+      <div>
+        <strong>{{ site.title }}</strong>
+        <p>{{ site.description }}</p>
+      </div>
     </div>
-    <p>&copy; {{ 'now' | date: '%Y' }} {{ site.author.name }} · Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a> & <a href="https://pages.github.com" target="_blank">GitHub Pages</a></p>
+    <div class="footer-meta">
+      <div class="footer-links">
+        <a href="/">文章</a>
+        <a href="/categories.html">分类</a>
+        <a href="/about.html">关于</a>
+        <a
+          href="{{ site.author.github | prepend: 'https://github.com/' }}"
+          target="_blank"
+          rel="noreferrer">
+          GitHub ↗
+        </a>
+      </div>
+      <p>© {{ 'now' | date: '%Y' }} {{ site.author.name }} · Built with Jekyll</p>
+    </div>
   </div>
 </footer>

@@ -1,132 +1,136 @@
 ---
 layout: default
 ---
-<div class="container">
-  <div class="post-top-nav">
-    <a href="{{ site.baseurl }}/" class="back-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-      返回首页
-    </a>
-    <nav class="breadcrumb">
-      <a href="/">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        首页
-      </a>
-      <svg class="sep" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+{% assign word_count = page.content | number_of_words %}
+{% assign read_min = word_count | divided_by: 200 | plus: 1 %}
+
+<div class="container-wide post-shell">
+  <nav class="post-topline" aria-label="文章路径">
+    <a href="{{ '/' | relative_url }}">← 返回文章</a>
+    <div>
+      <span>FIELD NOTE</span>
       {% if page.categories.size > 0 %}
-        {% assign first_cat = page.categories[0] %}
-        <a href="/categories.html#{{ first_cat | slugify }}">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-          {{ first_cat }}
+        <span>/</span>
+        <a href="/categories.html#{{ page.categories | first | slugify }}">
+          {{ page.categories | first }}
         </a>
-        <svg class="sep" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
       {% endif %}
-      <span class="current">{{ page.title }}</span>
-    </nav>
-  </div>
+    </div>
+  </nav>
+
   <article class="post">
     <header class="post-header">
+      <p class="eyebrow"><span></span> NOTE / {{ page.date | date: "%Y.%m.%d" }}</p>
       <h1 class="post-title">{{ page.title }}</h1>
+      {% if page.excerpt and page.excerpt != "" %}
+        <p class="post-deck">{{ page.excerpt | strip_html }}</p>
+      {% endif %}
       <div class="post-meta">
-        <div class="post-meta-primary">
-          <a href="/about.html" class="author-block">
-            <img src="{{ site.author.avatar | relative_url | default: '/assets/img/avatar.jpg' }}" alt="{{ page.author | default: site.author.name }}" class="author-avatar">
-            <span class="author-name">
-              {% assign display_author = page.author | default: site.author.name %}
-              {% if display_author == 'asilencer' %}Asilencer{% else %}{{ display_author | capitalize }}{% endif %}
+        <a href="/about.html" class="post-author">
+          <img
+            src="{{ site.author.avatar | relative_url }}"
+            alt="{{ page.author | default: site.author.name }}">
+          <span>
+            <small>WRITTEN BY</small>
+            <strong>{{ page.author | default: site.author.name }}</strong>
+          </span>
+        </a>
+        <div class="post-facts">
+          <span>{{ page.date | date: "%Y.%m.%d" }}</span>
+          <span>{{ read_min }} MIN READ</span>
+          {% if site.analytics.busuanzi %}
+            <span id="busuanzi_container_page_pv">
+              <span id="busuanzi_value_page_pv">--</span> VIEWS
             </span>
-          </a>
-          <div class="meta-chain">
-            <div class="meta-item meta-chip">
-              <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
-            </div>
-            {% if site.analytics.busuanzi %}
-            <div class="meta-item meta-chip post-view-chip" id="busuanzi_container_page_pv">
-              <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-              <span>阅读</span>
-              <span id="busuanzi_value_page_pv">--</span>
-            </div>
-            {% endif %}
-            <div class="meta-item meta-chip">
-              <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-              <span>{% assign wc = page.content | number_of_words %}{% assign rm = wc | divided_by: 200 | plus: 1 %}{{ rm }} min</span>
-            </div>
-            {% if page.tags and page.tags.size > 0 %}
-            <span class="tag meta-chip">
-              <svg class="meta-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-              <span class="tag-text">{{ page.tags | join: " / " }}</span>
-            </span>
-            {% endif %}
-          </div>
+          {% endif %}
         </div>
       </div>
+      {% if page.tags and page.tags.size > 0 %}
+        <div class="post-tag-list" aria-label="文章标签">
+          {% for tag in page.tags %}
+            <span>#{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
     </header>
+
     <div class="post-content">
       {{ content }}
     </div>
+
+    <footer class="post-signoff">
+      <img src="{{ '/assets/img/brand-mark.svg' | relative_url }}" alt="">
+      <div>
+        <strong>清风徐来</strong>
+        <p>愿这篇札记，为你的思考留下一点线索。</p>
+      </div>
+    </footer>
+
     {% if site.comments.provider == "utterances" and site.comments.repo %}
-    <section class="discussion-section" id="discussion">
-      <div class="discussion-header">
-        <h2>讨论</h2>
-        <p>直接用 GitHub Issue 留言，适合补充问题、勘误和延伸讨论。</p>
-      </div>
-      <div class="discussion-shell">
-        <script
-          src="https://utteranc.es/client.js"
-          repo="{{ site.comments.repo }}"
-          issue-term="{{ site.comments.issue_term | default: 'pathname' }}"
-          label="{{ site.comments.label | default: 'discussion' }}"
-          theme="{{ site.comments.theme_light | default: 'github-light' }}"
-          crossorigin="anonymous"
-          async>
-        </script>
-      </div>
-    </section>
+      <section class="discussion-section" id="discussion">
+        <header class="discussion-header">
+          <p>DISCUSSION</p>
+          <h2>继续聊聊</h2>
+          <span>问题、勘误与延伸思考，都可以留在这里。</span>
+        </header>
+        <div class="discussion-shell">
+          <script
+            src="https://utteranc.es/client.js"
+            repo="{{ site.comments.repo }}"
+            issue-term="{{ site.comments.issue_term | default: 'pathname' }}"
+            label="{{ site.comments.label | default: 'discussion' }}"
+            theme="{{ site.comments.theme_light | default: 'github-light' }}"
+            crossorigin="anonymous"
+            async>
+          </script>
+        </div>
+      </section>
     {% endif %}
   </article>
 </div>
 
 {% if page.toc != false %}
-<div class="toc-wrapper" id="toc-wrapper">
-  <nav class="toc">
-    <div class="toc-title">目录</div>
+<aside class="toc-wrapper" id="toc-wrapper">
+  <nav class="toc" aria-label="文章目录">
+    <p>ON THIS PAGE</p>
     <ul id="toc-list"></ul>
   </nav>
-</div>
+</aside>
 <script>
 (function() {
   var content = document.querySelector('.post-content');
   var tocList = document.getElementById('toc-list');
   var tocWrapper = document.getElementById('toc-wrapper');
-  if (!content || !tocList) return;
+  if (!content || !tocList || !tocWrapper) return;
 
   var headings = content.querySelectorAll('h2, h3');
   if (headings.length < 2) {
-    if (tocWrapper) tocWrapper.style.display = 'none';
+    tocWrapper.hidden = true;
     return;
   }
 
-  headings.forEach(function(h, i) {
-    h.id = 'section-' + i;
-    var li = document.createElement('li');
-    var a = document.createElement('a');
-    a.href = '#section-' + i;
-    a.textContent = h.textContent;
-    if (h.tagName === 'H3') a.style.paddingLeft = '1.2rem';
-    tocList.appendChild(li).appendChild(a);
+  headings.forEach(function(heading, index) {
+    if (!heading.id) heading.id = 'section-' + index;
+    var item = document.createElement('li');
+    var link = document.createElement('a');
+    link.href = '#' + heading.id;
+    link.textContent = heading.textContent;
+    if (heading.tagName === 'H3') link.className = 'toc-subitem';
+    item.appendChild(link);
+    tocList.appendChild(item);
   });
 
-  // 滚动高亮当前目录项
   var links = tocList.querySelectorAll('a');
   window.addEventListener('scroll', function() {
-    var scrollPos = window.scrollY + 100;
-    headings.forEach(function(h, i) {
-      if (h.offsetTop <= scrollPos) {
-        links.forEach(function(l) { l.classList.remove('active'); });
-        if (links[i]) links[i].classList.add('active');
-      }
+    var activeIndex = 0;
+    var scrollPosition = window.scrollY + 140;
+    headings.forEach(function(heading, index) {
+      if (heading.offsetTop <= scrollPosition) activeIndex = index;
     });
-  });
+    links.forEach(function(link, index) {
+      link.classList.toggle('active', index === activeIndex);
+    });
+  }, { passive: true });
 })();
 </script>
 {% endif %}
@@ -153,28 +157,4 @@ layout: default
 
 {% if site.analytics.busuanzi %}
 <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-{% endif %}
-
-{% if site.comments.provider == "utterances" and site.comments.repo %}
-<script>
-(function() {
-  var root = document.documentElement;
-  var lightTheme = '{{ site.comments.theme_light | default: "github-light" }}';
-  var darkTheme = '{{ site.comments.theme_dark | default: "github-dark" }}';
-
-  function syncUtterancesTheme() {
-    var frame = document.querySelector('.utterances-frame');
-    if (!frame || !frame.contentWindow) return;
-    var theme = root.getAttribute('data-theme') === 'dark' ? darkTheme : lightTheme;
-    frame.contentWindow.postMessage({ type: 'set-theme', theme: theme }, 'https://utteranc.es');
-  }
-
-  var observer = new MutationObserver(syncUtterancesTheme);
-  observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
-
-  window.addEventListener('load', function() {
-    setTimeout(syncUtterancesTheme, 600);
-  });
-})();
-</script>
 {% endif %}

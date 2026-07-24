@@ -1,0 +1,23 @@
+{% assign item = include.post %}
+{% assign word_count = item.content | number_of_words %}
+{% assign read_min = word_count | divided_by: 200 | plus: 1 %}
+<article class="post-row">
+  <a href="{{ item.url | relative_url }}" class="post-row-link" aria-label="阅读全文：{{ item.title }}"></a>
+  <div class="post-row-index" aria-hidden="true">{{ include.index }}</div>
+  <div class="post-row-body">
+    <div class="post-row-meta">
+      <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%Y.%m.%d" }}</time>
+      {% if item.categories.size > 0 %}
+        <span>/</span>
+        <span>{{ item.categories | first }}</span>
+      {% endif %}
+      <span>/</span>
+      <span>{{ read_min }} MIN READ</span>
+    </div>
+    <h3><a href="{{ item.url | relative_url }}">{{ item.title }}</a></h3>
+    {% if item.excerpt and item.excerpt != "" %}
+      <p>{{ item.excerpt | strip_html | truncate: 112 }}</p>
+    {% endif %}
+  </div>
+  <span class="post-row-arrow" aria-hidden="true">↗</span>
+</article>

@@ -3,39 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFFCF0">
   <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
   {% seo %}
-  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=23' | relative_url }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700;900&family=Noto+Serif+SC:wght@400;600;700;900&family=Outfit:wght@400;500;700;800&family=LXGW+WenKai+Screen:wght@400;700&display=swap" rel="stylesheet">
-  <script>
-    (function() {
-      var saved = localStorage.getItem('theme');
-      if (saved) {
-        document.documentElement.setAttribute('data-theme', saved);
-      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
-    })();
-    function toggleTheme() {
-      var current = document.documentElement.getAttribute('data-theme');
-      var next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      updateThemeIcon(next);
-    }
-    function updateThemeIcon(theme) {
-      var btn = document.getElementById('theme-toggle');
-      if (!btn) return;
-      btn.classList.toggle('dark', theme === 'dark');
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      updateThemeIcon(isDark ? 'dark' : 'light');
-    });
-  </script>
+  <link rel="icon" href="{{ '/assets/img/brand-mark.svg' | relative_url }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=24' | relative_url }}">
 </head>
 <body>
   <div class="progress-bar" id="progress-bar"></div>
@@ -43,13 +16,15 @@
   <main class="main">
     {{ content }}
   </main>
-  <button class="back-to-top" id="back-to-top" aria-label="回到顶部">↑</button>
+  <button class="back-to-top" id="back-to-top" aria-label="回到顶部">↟</button>
   {% include footer.html %}
   <script>
     (function() {
       var navbar = document.getElementById('navbar');
       var progressBar = document.getElementById('progress-bar');
       var backToTop = document.getElementById('back-to-top');
+      var menuToggle = document.getElementById('menu-toggle');
+      var navLinks = document.getElementById('nav-links');
 
       window.addEventListener('scroll', function() {
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -59,11 +34,18 @@
         progressBar.style.width = progress + '%';
         navbar.classList.toggle('scrolled', scrollTop > 10);
         backToTop.classList.toggle('visible', scrollTop > 400);
-      });
+      }, { passive: true });
 
       backToTop.addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
+
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function() {
+          var isOpen = navLinks.classList.toggle('open');
+          menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+      }
     })();
   </script>
 </body>

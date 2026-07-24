@@ -1,30 +1,19 @@
 ---
 layout: default
-title: "404 - Page Not Found"
+title: "页面没有找到"
 permalink: /404.html
 ---
-<div class="error-page">
-  <div class="error-terminal">
-    <div class="terminal-header">
-      <span class="terminal-dot"></span>
-      <span class="terminal-dot"></span>
-      <span class="terminal-dot"></span>
-    </div>
-    <div class="terminal-line">
-      <span class="terminal-prompt">~/blog $</span>
-      <span class="terminal-cmd">find . -name "{{ page.requested_url }}"</span>
-    </div>
-    <div class="terminal-output"><span class="error-code">Error 404:</span> Page not found</div>
-    <br>
-    <div class="terminal-output" style="opacity: 0.7;">The page you're looking for doesn't exist.</div>
-    <br>
-    <div class="terminal-line">
-      <span class="terminal-prompt">~/blog $</span>
-      <span class="terminal-cmd">cd <a href="/">~</a></span>
-    </div>
-    <div class="terminal-line">
-      <span class="terminal-prompt">~/blog $</span>
-      <span class="terminal-cursor"></span>
-    </div>
+<section class="error-page container-wide">
+  <div class="error-code" aria-hidden="true">404</div>
+  <div class="error-copy">
+    <p class="eyebrow"><span></span> PAGE NOT FOUND</p>
+    <h1>这阵风，<br>吹去了别处。</h1>
+    <p>你访问的页面不存在，或已经换了一个地址。</p>
+    <a href="/" class="button button-primary">回到文章 <span>→</span></a>
   </div>
-</div>
+  <svg class="error-wind" viewBox="0 0 420 160" aria-hidden="true">
+    <path d="M6 89c84-76 181-80 273-31 52 28 94 26 135-12"/>
+    <path d="M3 119c103-49 198-44 269 4 45 30 88 28 143-12"/>
+    <path d="M112 150c54-20 108-14 155 16"/>
+  </svg>
+</section>

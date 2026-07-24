@@ -3,60 +3,44 @@ layout: default
 title: 分类
 permalink: /categories.html
 ---
-<div class="container">
-  {% assign icons = "💻,🔧,📝,🚀,💡,🎨,📊,🌐" | split: "," %}
-  <div class="categories-grid">
-    {% assign cats = site.categories | sort %}
-    {% for cat in cats %}
-      {% assign icon_index = forloop.index0 | modulo: 8 %}
-      <div class="category-card-wrapper">
-        <a href="#{{ cat[0] | slugify }}" class="category-card">
-          <div class="cat-icon">{{ icons[icon_index] }}</div>
-          <div class="cat-name">{{ cat[0] }}</div>
-        </a>
-      </div>
-    {% endfor %}
-  </div>
+{% assign cats = site.categories | sort %}
+{% assign post_count = site.posts | size %}
 
-  <div class="category-posts">
+<header class="listing-hero container-wide">
+  <p class="eyebrow"><span></span> TOPIC ARCHIVE / {{ post_count }} NOTES</p>
+  <div class="listing-title">
+    <h1>按主题<br>慢慢读。</h1>
+    <p>从概念、论文到工程实践，把相关思考放回同一条脉络。</p>
+  </div>
+</header>
+
+<div class="container-wide">
+  <nav class="category-index" aria-label="分类索引">
+    {% for cat in cats %}
+      <a href="#{{ cat[0] | slugify }}" class="category-index-card">
+        <span>0{{ forloop.index }}</span>
+        <strong># {{ cat[0] }}</strong>
+        <small>{{ cat[1].size }} NOTES</small>
+        <i aria-hidden="true">↓</i>
+      </a>
+    {% endfor %}
+  </nav>
+
+  <div class="category-sections">
     {% for cat in cats %}
       <section id="{{ cat[0] | slugify }}" class="category-section">
-        <div class="category-header">
-          <h3>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-            {{ cat[0] }}
-          </h3>
-          <span class="count">{{ cat[1].size }} 篇</span>
-        </div>
-        <div class="post-list">
+        <header class="category-header">
+          <span class="category-number">0{{ forloop.index }}</span>
+          <div>
+            <p>TOPIC</p>
+            <h2>{{ cat[0] }}</h2>
+          </div>
+          <span class="category-count">{{ cat[1].size }} 篇</span>
+        </header>
+        <div class="post-rows">
           {% for post in cat[1] %}
-            <article class="post-card">
-              <a href="{{ post.url | relative_url }}" class="post-card-link" aria-label="阅读全文：{{ post.title }}"></a>
-              <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-              <p class="excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-              <div class="meta">
-                <div class="meta-chain">
-                  <div class="meta-item meta-chip">
-                    <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    <time>{{ post.date | date: "%Y-%m-%d" }}</time>
-                  </div>
-                  <div class="meta-item meta-chip">
-                    <svg class="meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                    <span>{% assign word_count = post.content | number_of_words %}{% assign read_min = word_count | divided_by: 200 | plus: 1 %}{{ read_min }} min</span>
-                  </div>
-                  {% if post.tags and post.tags.size > 0 %}
-                    <span class="tag meta-chip">
-                      <svg class="meta-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                      <span class="tag-text">
-                        {% assign display_tags = post.tags | slice: 0, 2 %}
-                        {{ display_tags | join: " / " }}
-                      </span>
-                    </span>
-                  {% endif %}
-                </div>
-                <a href="{{ post.url | relative_url }}" class="read-more">阅读 →</a>
-              </div>
-            </article>
+            {% capture row_index %}0{{ forloop.index }}{% endcapture %}
+            {% include post-row.html post=post index=row_index %}
           {% endfor %}
         </div>
       </section>

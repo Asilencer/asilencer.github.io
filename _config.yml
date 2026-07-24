@@ -1,5 +1,5 @@
 title: 清风徐来
-description: 探索技术世界，记录编程思考
+description: 把复杂技术，写成可以慢慢读懂的札记
 url: "https://asilencer.github.io"
 baseurl: ""
 timezone: Asia/Shanghai
@@ -18,7 +18,6 @@ comments:
   issue_term: pathname
   label: discussion
   theme_light: github-light
-  theme_dark: github-dark
 
 analytics:
   busuanzi: true
