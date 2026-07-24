@@ -44,29 +44,31 @@ excerpt: 收录 Asilencer 正在构建与已经完成的独立产品。
         </a>
 
         <div class="work-copy">
-          <div class="work-brand">
-            <img src="{{ work.mark | relative_url }}" alt="" class="work-mark">
-            <div>
-              <p>{{ work.kind }} / {{ work.year }}</p>
-              <h2>{{ work.name }}</h2>
+          <div class="work-copy-intro">
+            <div class="work-brand">
+              <img src="{{ work.mark | relative_url }}" alt="" class="work-mark">
+              <div>
+                <p>{{ work.kind }} / {{ work.year }}</p>
+                <h2>{{ work.name }}</h2>
+              </div>
             </div>
+            <p class="work-tagline">{{ work.tagline }}</p>
           </div>
 
-          <p class="work-tagline">{{ work.tagline }}</p>
-          <p class="work-summary">{{ work.summary }}</p>
-
-          <dl class="work-facts">
-            {% for fact in work.facts %}
-              <div>
-                <dt>{{ fact.label }}</dt>
-                <dd>{{ fact.value }}</dd>
-              </div>
-            {% endfor %}
-          </dl>
-
-          <a class="button button-primary work-cta" href="{{ work.repo }}" target="_blank" rel="noreferrer">
-            查看源代码 <span>↗</span>
-          </a>
+          <div class="work-copy-details">
+            <p class="work-summary">{{ work.summary }}</p>
+            <dl class="work-facts">
+              {% for fact in work.facts %}
+                <div>
+                  <dt>{{ fact.label }}</dt>
+                  <dd>{{ fact.value }}</dd>
+                </div>
+              {% endfor %}
+            </dl>
+            <a class="button button-primary work-cta" href="{{ work.repo }}" target="_blank" rel="noreferrer">
+              查看源代码 <span>↗</span>
+            </a>
+          </div>
         </div>
       </div>
 
