@@ -9,7 +9,9 @@ excerpt: 收录 Asilencer 正在构建与已经完成的独立产品。
 
 <header class="works-hero container-wide">
   <div class="works-hero-copy">
-    <p class="eyebrow"><span></span> INDEPENDENT WORK / {{ work_count }} PROJECT</p>
+    <p class="eyebrow">
+      <span></span> INDEPENDENT WORK / {{ work_count }} PROJECT{% if work_count != 1 %}S{% endif %}
+    </p>
     <h1>把想法，<br><em>做成作品。</em></h1>
   </div>
   <div class="works-hero-note">
@@ -23,7 +25,8 @@ excerpt: 收录 Asilencer 正在构建与已经完成的独立产品。
     <article
       class="work-card"
       id="{{ work.slug }}"
-      style="--work-accent: {{ work.accent | default: '#cc7d5e' }}">
+      style="--work-accent: {{ work.accent | default: '#cc7d5e' }}{% if work.tagline_size %};
+        --work-tagline-size: {{ work.tagline_size }}{% endif %}">
       <header class="work-card-head">
         <span>PROJECT / 0{{ forloop.index }}</span>
         <span class="work-status"><i></i>{{ work.stage }} / {{ work.status }}</span>

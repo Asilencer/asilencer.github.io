@@ -30,3 +30,37 @@
     - React
     - TypeScript
     - Slate
+
+- slug: serval
+  name: Serval
+  kind: macOS APPLICATION
+  year: "2026"
+  status: 已发布
+  stage: OPEN SOURCE
+  accent: "#24837b"
+  tagline: 配置有序，远近可见。
+  tagline_size: clamp(1.15rem, 2vw, 1.45rem)
+  summary: >-
+    一个原生 macOS 控制台，用来统一管理本机与远程 Linux 主机上的 AI Agent 配置。
+    技能、MCP、插件、生命周期钩子和提示词，都在同一处可见、可控。
+  mark: /assets/img/serval-icon.png
+  preview: /assets/img/serval-preview.jpg
+  preview_alt: Serval 的插件配置界面
+  repo: https://github.com/Asilencer/serval
+  facts:
+    - label: PLATFORM
+      value: macOS 14+
+    - label: LANGUAGE
+      value: Swift 6
+    - label: LICENSE
+      value: MIT
+  highlights:
+    - 统一管理技能、MCP、插件、钩子与提示词
+    - 在本机与 SSH 配置中的 Linux 主机间切换
+    - 检查远程系统、资源、网络和 CLI 环境
+    - 快照缓存、版本校验与原子配置写入
+  stack:
+    - Swift
+    - SwiftUI
+    - OpenSSH
+    - SwiftPM
