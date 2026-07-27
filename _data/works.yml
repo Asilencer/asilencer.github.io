@@ -44,8 +44,8 @@
     一个原生 macOS 控制台，用来统一管理本机与远程 Linux 主机上的 AI Agent 配置。
     技能、MCP、插件、生命周期钩子和提示词，都在同一处可见、可控。
   mark: /assets/img/serval-icon.png
-  preview: /assets/img/serval-preview.jpg
-  preview_alt: Serval 的插件配置界面
+  preview: /assets/img/serval-preview.png
+  preview_alt: Serval 的技能配置界面
   repo: https://github.com/Asilencer/serval
   facts:
     - label: PLATFORM
