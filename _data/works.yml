@@ -64,3 +64,37 @@
     - SwiftUI
     - OpenSSH
     - SwiftPM
+
+- slug: headers
+  name: Headers
+  kind: CHROMIUM EXTENSION
+  year: "2026"
+  status: 持续构建
+  stage: OPEN SOURCE
+  accent: "#6675f5"
+  tagline: 环境一换，请求就位。
+  tagline_size: clamp(1.2rem, 2.3vw, 1.65rem)
+  summary: >-
+    一个为本地开发和联调准备的 Chromium Request Header 管理扩展。不同环境的
+    Header 分组保存、按需启停，配置始终留在当前浏览器。
+  mark: /assets/img/headers-icon.svg
+  preview: /assets/img/headers-concept.png
+  preview_alt: Headers 请求规则与多环境切换的概念插画
+  repo: https://github.com/Asilencer/headers
+  facts:
+    - label: PLATFORM
+      value: Chromium
+    - label: STANDARD
+      value: Manifest V3
+    - label: STORAGE
+      value: Local only
+  highlights:
+    - 多环境空间与浏览器式标签切换
+    - 全局开关和单条 Header 独立启停
+    - 域名忽略规则与 `*` 通配符
+    - 中英双语、主题与字体配置
+  stack:
+    - JavaScript
+    - Manifest V3
+    - DNR API
+    - Chrome Storage
