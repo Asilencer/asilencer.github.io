@@ -121,7 +121,7 @@ layout: default
   });
 
   var links = tocList.querySelectorAll('a');
-  window.addEventListener('scroll', function() {
+  function updateActiveLink() {
     var activeIndex = 0;
     var scrollPosition = window.scrollY + 140;
     headings.forEach(function(heading, index) {
@@ -130,7 +130,10 @@ layout: default
     links.forEach(function(link, index) {
       link.classList.toggle('active', index === activeIndex);
     });
-  }, { passive: true });
+  }
+
+  window.addEventListener('scroll', updateActiveLink, { passive: true });
+  updateActiveLink();
 })();
 </script>
 {% endif %}
