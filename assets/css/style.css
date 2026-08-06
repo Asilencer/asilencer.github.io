@@ -1985,8 +1985,8 @@ svg {
   margin: 0;
 }
 
-.post-content .highlight,
-.page-content .highlight {
+.post-content div.highlight,
+.page-content div.highlight {
   color: var(--code-text);
   background: transparent;
 }
