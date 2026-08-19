@@ -89,6 +89,67 @@ layout: default
   </article>
 </div>
 
+<script>
+(function() {
+  var content = document.querySelector('.post-content');
+  if (!content) return;
+
+  var shell = content.closest('.post-shell');
+  var tables = Array.prototype.filter.call(content.children, function(child) {
+    return child.tagName === 'TABLE';
+  });
+  if (tables.length === 0) return;
+
+  var entries = tables.map(function(table) {
+    var frame = document.createElement('div');
+    frame.className = 'table-scroll';
+    table.parentNode.insertBefore(frame, table);
+    frame.appendChild(table);
+    return { frame: frame, table: table };
+  });
+
+  function updateTables() {
+    var contentWidth = Math.ceil(content.getBoundingClientRect().width);
+    var shellPadding = shell ? parseFloat(window.getComputedStyle(shell).paddingLeft) : 0;
+    var sideGap = Math.max(16, shellPadding || 0);
+    var availableWidth = Math.max(contentWidth, window.innerWidth - sideGap * 2);
+
+    entries.forEach(function(entry) {
+      var tableWidth = Math.ceil(entry.table.getBoundingClientRect().width);
+      var isOverflowing = tableWidth > contentWidth + 1;
+
+      entry.frame.classList.toggle('is-overflowing', isOverflowing);
+      if (isOverflowing) {
+        entry.frame.style.setProperty(
+          '--table-expanded-width',
+          Math.min(tableWidth, availableWidth) + 'px'
+        );
+        entry.frame.setAttribute('role', 'region');
+        entry.frame.setAttribute('aria-label', '可横向滚动的表格');
+        entry.frame.setAttribute('tabindex', '0');
+      } else {
+        entry.frame.style.removeProperty('--table-expanded-width');
+        entry.frame.removeAttribute('role');
+        entry.frame.removeAttribute('aria-label');
+        entry.frame.removeAttribute('tabindex');
+      }
+    });
+  }
+
+  var updateFrame = 0;
+  function scheduleUpdate() {
+    window.cancelAnimationFrame(updateFrame);
+    updateFrame = window.requestAnimationFrame(updateTables);
+  }
+
+  window.addEventListener('resize', scheduleUpdate, { passive: true });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(scheduleUpdate);
+  }
+  scheduleUpdate();
+})();
+</script>
+
 {% if page.toc != false %}
 <aside class="toc-wrapper" id="toc-wrapper">
   <nav class="toc" aria-label="文章目录">

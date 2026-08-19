@@ -2060,12 +2060,81 @@ svg {
 }
 
 .post-content table {
-  display: block;
   width: 100%;
-  margin: 1.5rem 0;
   border-collapse: collapse;
-  overflow-x: auto;
   font-size: 0.93rem;
+}
+
+.post-content > table {
+  display: block;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.post-content .table-scroll {
+  position: relative;
+  z-index: 1;
+  left: 50%;
+  width: 100%;
+  max-width: calc(100vw - 2rem);
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-inline: contain;
+  scrollbar-color: var(--ink-muted) var(--paper-deep);
+  scrollbar-width: thin;
+  transform: translateX(-50%);
+  transition:
+    width var(--ease),
+    box-shadow var(--ease);
+  -webkit-overflow-scrolling: touch;
+}
+
+.post-content .table-scroll > table {
+  display: table;
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+  overflow: visible;
+  table-layout: auto;
+}
+
+.post-content .table-scroll.is-overflowing {
+  overflow-x: scroll;
+  scrollbar-gutter: stable;
+}
+
+.post-content > table::-webkit-scrollbar,
+.post-content .table-scroll::-webkit-scrollbar {
+  height: 0.55rem;
+}
+
+.post-content > table::-webkit-scrollbar-track,
+.post-content .table-scroll::-webkit-scrollbar-track {
+  background: var(--paper-deep);
+}
+
+.post-content > table::-webkit-scrollbar-thumb,
+.post-content .table-scroll::-webkit-scrollbar-thumb {
+  border: 2px solid var(--paper-deep);
+  border-radius: 999px;
+  background: var(--ink-muted);
+}
+
+.post-content > table::-webkit-scrollbar-thumb:hover,
+.post-content .table-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--red);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .post-content .table-scroll.is-overflowing:hover,
+  .post-content .table-scroll.is-overflowing:focus-visible,
+  .post-content .table-scroll.is-overflowing:focus-within {
+    z-index: 60;
+    width: var(--table-expanded-width);
+    background: var(--paper);
+    box-shadow: 8px 8px 0 var(--paper-deep);
+  }
 }
 
 .post-content th,
