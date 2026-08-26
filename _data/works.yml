@@ -13,7 +13,7 @@
   mark: /assets/img/yue-mark.svg?v=3
   preview: /assets/img/yue-preview.png?v=2
   preview_alt: 阅的明亮首页界面
-  repo: https://github.com/Asilencer/yuguang-reader
+  repo: https://github.com/Asilencer/yue
   facts:
     - label: PLATFORM
       value: macOS / Apple Silicon
