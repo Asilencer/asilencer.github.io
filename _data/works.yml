@@ -1,3 +1,37 @@
+- slug: yue
+  name: 阅
+  kind: macOS APPLICATION
+  year: "2026"
+  status: 已发布
+  stage: OPEN SOURCE
+  accent: "#8a6f5a"
+  tagline: 从书页，看向生活。
+  tagline_size: clamp(1.2rem, 2.3vw, 1.65rem)
+  summary: >-
+    一个明亮、本地优先的 macOS EPUB 阅读器。书架、窗外的光与全屏正文留在同一个空间里，
+    阅读保持专注，也不必与真实生活断开连接。
+  mark: /assets/img/yue-icon.png
+  preview: /assets/img/yue-preview.png
+  preview_alt: 阅的明亮场景书架界面
+  repo: https://github.com/Asilencer/yuguang-reader
+  facts:
+    - label: PLATFORM
+      value: macOS / Apple Silicon
+    - label: FORMAT
+      value: EPUB
+    - label: LICENSE
+      value: MIT
+  highlights:
+    - 本地 EPUB 导入与语义化可重排排版
+    - 全屏连续阅读、章节目录、进度 Pin 与自动续读
+    - 四种明亮场景和适配横竖窗口的高清背景
+    - 字体、字号、行距、文字与纸张颜色即时配置
+  stack:
+    - Electron
+    - TypeScript
+    - Vite
+    - IndexedDB
+
 - slug: jotkeep
   name: Jotkeep
   kind: macOS APPLICATION
