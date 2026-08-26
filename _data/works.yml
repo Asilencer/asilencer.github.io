@@ -10,8 +10,8 @@
   summary: >-
     一个明亮、本地优先的 macOS EPUB 阅读器。书架、窗外的光与全屏正文留在同一个空间里，
     阅读保持专注，也不必与真实生活断开连接。
-  mark: /assets/img/yue-mark.png
-  preview: /assets/img/yue-preview.png
+  mark: /assets/img/yue-mark.png?v=2
+  preview: /assets/img/yue-preview.png?v=2
   preview_alt: 阅的明亮首页界面
   repo: https://github.com/Asilencer/yuguang-reader
   facts:
